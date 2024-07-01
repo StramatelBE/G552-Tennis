@@ -41,6 +41,7 @@ const handleScoring = async (scoring) => {
         };
 
         const handleMacroMode = async (mode, gameState) => {
+            console.log("macro mode!")
             // console.log("macro mode");
 
             // console.log("Mode", mode);
