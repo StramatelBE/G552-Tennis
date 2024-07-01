@@ -113,6 +113,7 @@ const handleScoring = async (scoring) => {
             unixSocketSetup.sendData(scoring);
             previousMacrosDataMode = scoring.Mode;
         } else if (stopModes.includes(scoring.Mode)) {
+            console.log("4")
 
             let stop = {};
             stop.Mode = scoring.Mode;
