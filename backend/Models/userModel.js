@@ -292,7 +292,6 @@ class User {
         `SELECT * FROM users WHERE username = ?`,
         [username],
         (err, user) => {
-          console.log(err, user);
           if (err) {
             console.log(
               `Error looking up user with username: ${username}`,
@@ -312,7 +311,6 @@ class User {
       `SELECT * FROM users WHERE username = ?`,
       [username],
       (err, user) => {
-        console.log(err, user);
         if (err) {
           console.log(`Error looking up user with username: ${username}`, err);
           callback(err, null);
