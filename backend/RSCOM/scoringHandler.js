@@ -51,6 +51,7 @@ const handleScoring = async (scoring) => {
             //console.log("macrosData", macrosData)
             if (scoreMode.includes(macrosData)) {
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
+                // console.log("No event for this macro, sending Mode", scoring.Mode);
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
             } else if (macrosData && macrosData[0]) {
@@ -60,7 +61,6 @@ const handleScoring = async (scoring) => {
                 unixSocketSetup.sendMedia(macrosData[0]);
             } else {
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
-
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
             }
@@ -86,6 +86,7 @@ const handleScoring = async (scoring) => {
             //console.log("macrosData", macrosData)
             if (scoreMode.includes(macrosData)) {
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
+                // console.log("No event for this macro, sending Mode", scoring.Mode);
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
             } else if (macrosData && macrosData[0]) {
@@ -93,6 +94,7 @@ const handleScoring = async (scoring) => {
                 previousMacrosDataMode = mode; // Update the cache
                 unixSocketSetup.sendMedia(macrosData[0]);
             } else {
+                // console.log("No event for this macro, sending Mode", scoring.Mode);
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
                 scoring.Mode = scoreMode;
                 unixSocketSetup.sendData(scoring);
