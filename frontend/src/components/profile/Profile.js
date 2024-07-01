@@ -536,7 +536,7 @@ function Profile() {
               </Box>
             </Stack>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 1 }}>
-              {sportsData.length > 0 && sportsData.filter(sport => sport.width >= 1).map((sport, index) => (
+              {sportsData.length > 0 && sportsData.map((sport, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', mr: 1, mb: 1 }}>
                   <Box sx={{ width: 10, height: 10, bgcolor: sport.color }} />
                   <Typography variant="body2" sx={{ ml: 1 }}>
