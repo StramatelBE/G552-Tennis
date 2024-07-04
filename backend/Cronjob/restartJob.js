@@ -5,7 +5,6 @@ const exec = require('child_process').exec;
 const Veille = require('../Models/veilleModel'); // Ajustez le chemin selon votre structure de dossiers
 const { log } = require('console');
 const sharedEmitter = require('../Utils/SharedEmitter')
-const sharedEmitter = require('../Utils/SharedEmitter')
 const veille = new Veille();
 
 const restartJob = {
