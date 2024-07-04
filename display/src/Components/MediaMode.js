@@ -15,7 +15,7 @@ const MediaMode = ({mediaState, mediaMode}) => {
         }
 
         // Sort media by order
-        mediaState.sort((a, b) => a.order - b.order);
+        mediaState = mediaState.sort((a, b) => a.order - b.order);
 
         
 
