@@ -130,24 +130,6 @@ function Profile() {
     return color;
   }
 
-  const handleRestartAtChange = (e) => {
-    setEditRestartAt(e.target.value);
-  };
-
-  const submitVeilleUpdate = () => {
-    if (!editRestartAt.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
-      alert("Please enter a valid time.");
-      return;
-    }
-    const updatedVeille = { ...veille, restart_at: editRestartAt };
-    veilleService.update(updatedVeille).then(() => {
-      setVeille(updatedVeille);
-      alert("Veille time updated successfully.");
-    }).catch(error => {
-      console.error("Error updating veille time:", error);
-      alert("Failed to update veille time.");
-    });
-  };
   
 
 
