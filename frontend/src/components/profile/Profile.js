@@ -9,8 +9,7 @@ import {
   Stack,
   Switch,
   TextField,
-  Typography,
-  Button
+  Typography
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
@@ -60,14 +59,6 @@ function Profile() {
     modeServiceInstance.getMode().then((data) => {
       setMode(data.mode);
     });
-    function getRandomColor() {
-      const letters = '012233445566778899AABBCCCDEEFF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
 
     spaceService.getSpace().then((data) => {
       const widths = [];
@@ -110,95 +101,6 @@ function Profile() {
 
   useEffect(() => {
     if (user) {
-      paramService.getByUserId(user.id).then((paramData) => {
-        const paramDataItem = paramData?.[0] || {};
-        setParam(paramDataItem);
-        veilleService.getByUserId(paramDataItem.veille_id).then(veilleData => {
-          setVeille(veilleData || {});
-          setEditRestartAt(veilleData?.restart_at || "");
-        });
-      });
-    }
-  }, [user]);
-
-  function getRandomColor() {
-    const letters = '012233445566778899AABBCCCDEEFF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  
-
-
-  function setModeTest(mode) {
-    const datamode = { event_id: null, mode: mode };
-    modeServiceInstance.setMode(datamode).then((data) => {
-      console.log("data", data);
-      setMode(mode);
-    });
-  }
-
-
-
-  useEffect(() => {
-    if (user) {
-      paramService.getByUserId(user.id).then(paramData => {
-        const paramDataItem = paramData?.[0] || {};
-        setParam(paramDataItem);
-        veilleService.getByUserId(paramDataItem.veille_id).then(veilleData => {
-          setVeille(veilleData || {});
-          setEditRestartAt(veilleData?.restart_at || "");
-        });
-      });
-    }
-  }, [user]);
-
-  function getRandomColor() {
-    const letters = '012233445566778899AABBCCCDEEFF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  const handleRestartAtChange = (e) => {
-    setEditRestartAt(e.target.value);
-  };
-
-  const submitVeilleUpdate = () => {
-    if (!editRestartAt.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) {
-      alert("Please enter a valid time.");
-      return;
-    }
-    const updatedVeille = { ...veille, restart_at: editRestartAt };
-    veilleService.update(updatedVeille).then(() => {
-      setVeille(updatedVeille);
-      alert("Veille time updated successfully.");
-    }).catch(error => {
-      console.error("Error updating veille time:", error);
-      alert("Failed to update veille time.");
-    });
-  };
-  
-
-
-  function setModeTest(mode) {
-    const datamode = { event_id: null, mode: mode };
-    modeServiceInstance.setMode(datamode).then((data) => {
-      console.log("data", data);
-      setMode(mode);
-    });
-  }
-
-
-
-  useEffect(() => {
-    if (user) {
-    console.log("user",user);
       paramService.getByUserId(user.id).then((paramData) => {
         const paramDataItem = paramData?.[0] || {};
         setParam(paramDataItem);
@@ -261,21 +163,6 @@ function Profile() {
     const percentage = (usedSize / totalSize) * 100;
     return isNaN(percentage) ? 0 : percentage;
   };
-
-  useEffect(() => {
-    if (user) {
-      paramService.getByUserId(user.id).then(paramData => {
-        const paramDataItem = paramData?.[0] || {};
-        setParam(paramDataItem);
-        veilleService.getByUserId(paramDataItem.veille_id).then(veilleData => {
-          setVeille(veilleData || {});
-          setEditRestartAt(veilleData?.restart_at || "");
-        });
-      });
-    }
-  }, [user]);
-  
-  
 
 
 
@@ -557,7 +444,7 @@ function Profile() {
               </Box>
               <Box sx={{ flexGrow: 10 }}>
                 <Box sx={{ display: 'flex', height: '20px', outline: '1px solid #dbd2d2 !important' }}>
-                  {sportsData.length > 0 && sportsData.map((sport, index) => (
+                  {sportsData.length > 0 && sportsData.filter(sport => sport.width >= 1).map((sport, index) => (
                     <Box
                       key={index}
                       sx={{
@@ -571,7 +458,7 @@ function Profile() {
               </Box>
             </Stack>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 1 }}>
-              {sportsData.length > 0 && sportsData.map((sport, index) => (
+              {sportsData.length > 0 && sportsData.filter(sport => sport.width >= 1).map((sport, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', mr: 1, mb: 1 }}>
                   <Box sx={{ width: 10, height: 10, bgcolor: sport.color }} />
                   <Typography variant="body2" sx={{ ml: 1 }}>
