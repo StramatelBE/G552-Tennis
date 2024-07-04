@@ -19,6 +19,7 @@ class Media {
                     TEXT,
                 path
                     TEXT,
+                thumbnailPath TEXT, 
                 format
                     TEXT,
                 type
@@ -45,8 +46,9 @@ class Media {
     db.run(createTable);
   }
 
-  create(file, user_id, username) {
+  create(file, user_id, username, thumbnailPath) {
     console.log(file);
+    console.log(thumbnailPath);
 
     const originalFileName = file.originalname;
 
@@ -60,14 +62,15 @@ class Media {
 
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO media (originalFileName, fileName, lastModified, size, path, format, type, user_id)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO media (originalFileName, fileName, lastModified, size, path, thumbnailPath, format, type, user_id)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           originalFileName,
           fileName,
           lastModified,
           size,
           path,
+          thumbnailPath,
           format,
           type,
           user_id,

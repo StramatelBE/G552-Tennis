@@ -33,7 +33,7 @@ function DiaporamaMedia(props) {
           >
             {props.item.type === "video" ? (
               <Box
-                component="video"
+                component="img"
                 sx={{
                   minHeight: "calc(9vh)",
                   minWidth: "calc(15vh)",
@@ -41,7 +41,7 @@ function DiaporamaMedia(props) {
                   maxHeight: "calc(9vh)",
                 }}
                 alt={props.item.title}
-                src={props.item.path}
+                src={props.item.thumbnailPath}
               />
             ) : props.item.type === "image" ? (
               <Box

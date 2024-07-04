@@ -45,8 +45,9 @@ function UpdateNameDialogOpen({ open, onClose, event }) {
             sx={{ marginTop: "16px" }}
             label={t("Diaporama.Dialog.name")}
             type="text"
-            value={newName}
+            defaultValue={newName}
             onChange={(e) => setNewName(e.target.value)}
+            autoFocus
           />
         </FormControl>
       </DialogContent>
@@ -54,7 +55,11 @@ function UpdateNameDialogOpen({ open, onClose, event }) {
         <Button onClick={onClose} sx={{ color: "secondary.main" }}>
           {t("Dialog.cancel")}
         </Button>
-        <Button onClick={handleSubmit} sx={{ color: "secondary.main" }}>
+        <Button
+          onClick={handleSubmit}
+          sx={{ color: "secondary.main" }}
+          disabled={!newName}
+        >
           {t("Dialog.confirm")}
         </Button>
       </DialogActions>

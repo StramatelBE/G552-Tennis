@@ -361,7 +361,7 @@ function Medias(props) {
                                     {file.type === "video" ? (
                                       <Box>
                                         <Box
-                                          component="video"
+                                          component="img"
                                           onClick={() =>
                                             handleImageClick(file.id)
                                           }
@@ -378,7 +378,7 @@ function Medias(props) {
                                               ref.currentTime = 10;
                                             }
                                           }}
-                                          src={file.path}
+                                          src={file.thumbnailPath}
                                         ></Box>
                                         <PlayCircleFilledIcon
                                           sx={{

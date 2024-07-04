@@ -2,6 +2,7 @@ const Media = require("../Models/mediaModel");
 const fs = require("fs");
 const multer = require("multer");
 const crypto = require("crypto");
+const ffmpeg = require("fluent-ffmpeg");
 const sharedEmitter = require("../Utils/SharedEmitter");
 require("dotenv").config();
 
@@ -16,7 +17,7 @@ class MediaController {
       },
       filename: (req, file, cb) => {
         const hash = crypto.createHash("sha256");
-        hash.update(file.name + Date.now().toString());
+        hash.update(file.originalname + Date.now().toString());
         const fileName = hash.digest("hex");
         cb(null, fileName + "." + file.mimetype.split("/")[1]);
         file.filename = fileName;
@@ -39,19 +40,45 @@ class MediaController {
         console.log(err, "test");
         res.status(500).json({ message: err });
       } else {
-        sharedEmitter.emit("created", req.file.filename);
-        res.status(201).json({ message: "File uploaded successfully" });
-        const id = req.params.id;
+        const file = req.file;
+        const filePath = `${process.env.UPLOAD_PATH}${username}/${file.filename}`;
+        const thumbnailPath = `${process.env.UPLOAD_PATH}${username}/thumbnails/${file.filename}.png`;
 
-        this.media
-          .create(req.file, id, username)
-          .then((media) => { })
-          .catch((err) => {
-
-            res.status(500).json({ message: err });
-          });
+        if (file.mimetype.startsWith('video/')) {
+          ffmpeg(filePath)
+            .screenshots({
+              timestamps: ['50%'],
+              filename: `${file.filename}.png`,
+              folder: `${process.env.UPLOAD_PATH}${username}/thumbnails`,
+              size: '380x240'
+            })
+            .on('end', () => {
+              console.log('Thumbnail generated');
+              const relativeThumbnailPath = `/medias/${username}/thumbnails/${file.filename}.png`;
+              this.saveMediaToDB(file, req.params.id, username, relativeThumbnailPath, res);
+            })
+            .on('error', (err) => {
+              console.error('Error generating thumbnail', err);
+              res.status(500).json({ message: 'Error generating thumbnail' });
+            });
+        } else {
+          this.saveMediaToDB(file, req.params.id, username, null, res);
+        }
       }
     });
+  };
+
+  saveMediaToDB = (file, userId, username, thumbnailPath, res) => {
+    this.media
+      .create(file, userId, username, thumbnailPath)
+      .then((media) => {
+        sharedEmitter.emit("created", file.filename);
+        res.status(201).json({ message: "File uploaded successfully" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: err });
+      });
   };
 
   update = (req, res) => {
@@ -112,37 +139,37 @@ class MediaController {
       .getById(req.params.id)
       .then((file) => {
         const filePath = file.path;
+        const thumbnailPath = file.thumbnailPath;
 
-        fs.unlink(process.env.UPLOAD_PATH + filePath, (err) => {
+        fs.unlink(process.env.MEDIA_DISPLAY_PATH + filePath, (err) => {
           if (err) {
-            {
-              this.media
-                .delete(req.params.id)
-                .then(() => {
-                  console.log("delete OK");
-                  return res
-                    .status(204)
-                    .json({ message: "File deleted successfully" });
-                })
-                .catch((err) => {
-                  console.log(err);
-                  return res.status(500).json({ message: err });
-                });
-            }
+            console.error("Error deleting media file", err);
           } else {
-            this.media
-              .delete(req.params.id)
-              .then(() => {
-                console.log("delete OK");
-                return res
-                  .status(204)
-                  .json({ message: "File deleted successfully" });
-              })
-              .catch((err) => {
-                console.log(err);
-                return res.status(500).json({ message: err });
-              });
+            console.log("Media file deleted");
           }
+
+
+          if (thumbnailPath) {
+            fs.unlink(process.env.MEDIA_DISPLAY_PATH + thumbnailPath, (err) => {
+              if (err) {
+                console.error("Error deleting thumbnail file", err);
+              } else {
+                console.log("Thumbnail file deleted");
+              }
+            });
+          }
+
+          // Supprimer l'entrée de la base de données
+          this.media
+            .delete(req.params.id)
+            .then(() => {
+              console.log("delete OK");
+              return res.status(204).json({ message: "File deleted successfully" });
+            })
+            .catch((err) => {
+              console.log(err);
+              return res.status(500).json({ message: err });
+            });
         });
       })
       .catch((err) => {
