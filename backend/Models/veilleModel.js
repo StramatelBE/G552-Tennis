@@ -1,7 +1,6 @@
 // Models/veilleModel.js
 const db = require("../Database/db");
 const sharedEmitter = require("../Utils/SharedEmitter");
-const sharedEmitter = require("../Utils/SharedEmitter");
 
 class Veille {
   constructor() {
@@ -117,7 +116,7 @@ class Veille {
     });
 }
 
-}
+
 
 
   delete(id) {
