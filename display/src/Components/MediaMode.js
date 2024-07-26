@@ -39,14 +39,16 @@ const MediaMode = ({mediaState, mediaMode}) => {
     const shouldLoop = mediaState.length === 1 && isVideo;
 
     return (
-        <>  {mediaPath === null ?
+        <div style={{backgroundColor: "black", width: "512px", height: "256px"}}>  {mediaPath === null ?
             <ScoringMode gameState={gameState} />
         :
             isVideo ? (
          
                     <video
                         src={"http://localhost:3000" + mediaPath}
-                        style={{width: "512px", height: "256px"}}
+                        style={{width: "100%",
+                        height: "100%",
+                        objectFit: "fill"}}
                         autoPlay
                         preload={"auto"}
                         onEnded={() => setCurrentMediaIndex((currentMediaIndex + 1) % mediaState.length)}
@@ -62,7 +64,7 @@ const MediaMode = ({mediaState, mediaMode}) => {
                     }
                 </>
             )}
-        </>
+        </div>
     );
 };
 

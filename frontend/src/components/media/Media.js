@@ -33,6 +33,9 @@ import EventMediaService from "../../services/eventMediaService";
 import UploadService from "../../services/uploadService";
 import CropsModal from "../dialogs/CropsModal";
 import DeleteMediaDialog from "../dialogs/DeleteMediaDialog";
+import useAuthStore from "../../stores/authStore";
+import DuplicateMediaDialog from "../dialogs/DuplicateMediaDialog";
+import { useTheme } from '@mui/material/styles';
 
 function Medias(props) {
   const { t } = useTranslation(); // Utilisation de useTranslation
@@ -51,7 +54,9 @@ function Medias(props) {
   const [sortCriteria, setSortCriteria] = useState("recent");
   const [viewMode, setViewMode] = useState("grid");
   const [inputKey, setInputKey] = useState(0);
-
+  const [duplicateDialogOpen, setDuplicateDialogOpen] = useState(false);
+  const [duplicateFile, setDuplicateFile] = useState(null);
+  const theme = useTheme()
   const toggleViewMode = () => {
     setViewMode(viewMode === "grid" ? "table" : "grid");
   };
@@ -146,6 +151,18 @@ function Medias(props) {
     const imageFiles = files.filter(file => file.type.split("/")[0] === "image");
     const videoFiles = files.filter(file => file.type.split("/")[0] === "video");
 
+
+    console.log(imageFiles,videoFiles);
+    const duplicate = files.find(file => 
+      props.eventMedia[1].medias.some(media => media.originalFileName === file.name)
+    );
+
+    if (duplicate) {
+      setDuplicateFile(duplicate);
+      setDuplicateDialogOpen(true);
+      return;
+    }
+
     if (videoFiles.length > 0) {
       videoFiles.forEach(file => {
         uploadService
@@ -172,7 +189,6 @@ function Medias(props) {
             img.onload = () => {
               const targetWidth = parseInt(process.env.REACT_APP_WIDTH, 10);
               const targetHeight = parseInt(process.env.REACT_APP_HEIGHT, 10);
-              console.log("img", img.width, img.height, targetWidth, targetHeight);
               if (isRatioEqual(img.width, img.height, targetWidth, targetHeight)) {
                 // Upload directly if the ratio matches directly if the ratio matches
                 const fileWithOriginalName = new File([file], file.name, {
@@ -245,11 +261,26 @@ function Medias(props) {
       mediaId: file.idBdd,
       eventId: props.id,
       duration: 1,
-      userId: authService.getCurrentUser().user.id,
+      userId: useAuthStore.getState().user.id,
       media_pos_in_event: props.eventMedia[1].medias.length + 1,
     }).then((result) => {
       props.getEvents();
     });
+  }
+
+  function handleDuplicateConfirm() {
+    uploadService
+      .upload(setLoading, duplicateFile, setProgress)
+      .then(() => {
+        props.getMedias();
+        setProgress(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    setDuplicateDialogOpen(false);
+    setDuplicateFile(null);
   }
 
   return (
@@ -330,7 +361,7 @@ function Medias(props) {
                                     {file.type === "video" ? (
                                       <Box>
                                         <Box
-                                          component="video"
+                                          component="img"
                                           onClick={() =>
                                             handleImageClick(file.id)
                                           }
@@ -347,7 +378,7 @@ function Medias(props) {
                                               ref.currentTime = 10;
                                             }
                                           }}
-                                          src={file.path}
+                                          src={file.thumbnailPath}
                                         ></Box>
                                         <PlayCircleFilledIcon
                                           sx={{
@@ -407,15 +438,14 @@ function Medias(props) {
                               <TableCell align="right">Actions</TableCell>
                             </TableRow>
                           </TableHead>
-                          <TableBody>
+                          <TableBody >
                             {props.eventMedia[1].medias.map((file, index) => (
                               <TableRow
+                              sx={{ backgroundColor: index % 2 === 0 ? theme.palette.background : theme.palette.action.hover,"&:last-child td, &:last-child th": {
+                                border: 0,
+                              }, }}
                                 key={file.id}
-                                sx={{
-                                  "&:last-child td, &:last-child th": {
-                                    border: 0,
-                                  },
-                                }}
+
                               >
                                 <TableCell align="right">
                                   {props.id === undefined ? (
@@ -443,7 +473,7 @@ function Medias(props) {
                                 </TableCell>
                                 <TableCell align="right">{file.type}</TableCell>
                                 <TableCell align="right">
-                                  {file.uploaded_at}
+                                  {file.uploaded_at.split(' ')[0]} {/* Enlever l'heure */}
                                 </TableCell>
                                 <TableCell align="right">
                                   <IconButton
@@ -486,6 +516,11 @@ function Medias(props) {
         onClose={displayDialogDelete}
         DeleteFile={DeleteFile}
         displayDialogDelete={displayDialogDelete}
+      />
+      <DuplicateMediaDialog
+        open={duplicateDialogOpen}
+        onClose={() => setDuplicateDialogOpen(false)}
+        onConfirm={handleDuplicateConfirm}
       />
     </Box>
   );

@@ -1,4 +1,5 @@
 import fetchWithAuth from "../utils/fetchWithAuth"; // Ajustez le chemin en fonction de la structure de votre projet
+import useAuthStore from "../stores/authStore"; // Importation du store
 
 const URL_API = process.env.REACT_APP_API_URL;
 
@@ -21,9 +22,9 @@ class AuthService {
         ...data,
       };
       if (data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(data));
-        this.currentUser = data;
-        window.location.reload();
+        useAuthStore.getState().setToken(data.accessToken); 
+        useAuthStore.getState().setUser(data.user); 
+        this.currentUser = data.user;
       }
 
       return result;
@@ -33,17 +34,12 @@ class AuthService {
   }
 
   async logout() {
+    useAuthStore.getState().setToken(null); 
+    useAuthStore.getState().setUser(null); 
     try {
-      const response = await fetchWithAuth(`${URL_API}/activeSessions/logout`, {
+     await fetchWithAuth(`${URL_API}/activeSessions/logout`, {
         method: "PUT",
       });
-
-      const data = await response.json();
-
-     
-      this.currentUser = null;
-
-      return data;
     } catch (error) {
       console.error("Error during logout:", error);
     }
@@ -64,22 +60,12 @@ class AuthService {
     }
   }
 
-  updateAccessToken(newToken) {
-    const user = this.getCurrentUser();
-    if (user) {
-      user.accessToken = newToken;
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  }
-
   async changePassword(newPassword) {
     try {
-      const user = this.getCurrentUser();
-      console.log("user", user);
-
+        const user = useAuthStore.getState().user;
       if (user) {
         const response = await fetchWithAuth(
-          `${URL_API}/auth/modifyPassword/${user.user.id}`,
+          `${URL_API}/auth/modifyPassword/${user.id}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -119,10 +105,6 @@ class AuthService {
     }
   }
 
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
-  }
-
   async updateFirstLogin(id) {
     try {
       const response = await fetchWithAuth(
@@ -137,6 +119,7 @@ class AuthService {
       console.error("Error during firstLogin:", error);
     }
   }
+
   async updateLanguage(language, id) {
     try {
       const response = await fetchWithAuth(`${URL_API}/users/updateLanguage/${id}`, {
@@ -151,8 +134,6 @@ class AuthService {
     }
   }
 }
-
-
 
 const authService = new AuthService();
 

@@ -1,13 +1,12 @@
-import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import SlideshowIcon from "@mui/icons-material/Slideshow";
 import {
   Box,
+  Hidden,
   IconButton,
-  Menu,
-  MenuItem,
   Paper,
   Stack,
   Table,
@@ -15,7 +14,6 @@ import {
   TableContainer,
   Typography
 } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
 import React, { useEffect, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { useTranslation } from "react-i18next";
@@ -29,8 +27,8 @@ import {
 import DeleteEventDialog from "../../dialogs/DeleteEventDialog";
 import DeleteMediaEventDialog from "../../dialogs/DeleteMediaEventDialog";
 import DiaporamaModal from "../../dialogs/DiaporamaModal";
-import DiaporamaMedia from "../media/DiaporamaMedia";
 import UpdateNameDialogOpen from "../../dialogs/UpdateNameDialogOpen";
+import DiaporamaMedia from "../media/DiaporamaMedia";
 
 function DiaporamaConfig(props) {
   const { t } = useTranslation();
@@ -259,7 +257,7 @@ function DiaporamaConfig(props) {
             >
               <EditIcon sx={{ color: "secondary.main" }} />
             </IconButton>
-            <IconButton
+         {/*    <IconButton
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
@@ -278,7 +276,7 @@ function DiaporamaConfig(props) {
               }}
             >
               <MenuItem onClick={addPanel}>Panneau</MenuItem>
-            </Menu>
+            </Menu> */}
             <IconButton
               className="headerButton"
               onClick={openDeleteEventDialog}
@@ -302,7 +300,7 @@ function DiaporamaConfig(props) {
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {props.eventMedia[0]?.medias.length ? (
                 <Box className="containerPage">
-                  <TableContainer>
+                  <TableContainer sx={{height: "100%"}}>
                     <Table
                       sx={{ borderCollapse: "separate", borderSpacing: 0 }}
                     >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   Box,
@@ -25,7 +25,6 @@ import StopIcon from "@mui/icons-material/Stop";
 import StorageIcon from "@mui/icons-material/Storage";
 
 import { useDarkMode } from "../../contexts/DarkModeContext";
-import authService from "../../services/authService";
 import paramService from "../../services/paramService";
 import veilleService from "../../services/veilleService";
 import LanguageSelector from "../common/LanguageSelector";
@@ -33,6 +32,7 @@ import ChangePasswordDialog from "../dialogs/ChangePasswordDialog";
 
 import modeServiceInstance from "../../services/modeService";
 import spaceService from "../../services/spaceService";
+import useAuthStore from "../../stores/authStore";
 
 function Profile() {
   const { t } = useTranslation();
@@ -46,27 +46,26 @@ function Profile() {
   const [mode, setMode] = useState({});
   const [Widths, setWidths] = useState([]);
   const [sportsData, setSportsData] = useState([]);
+  const timeoutRef = useRef(null);
 
-
-  let currentWidth = 0;
+  const predefinedColors = [
+    "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FF8C33", "#8C33FF", "#33FFF5", "#FFD700", // Couleurs précédentes
+    "#FF6347", "#4682B4", "#32CD32", "#FF4500", "#DA70D6", "#7B68EE", "#00FA9A", "#FFDAB9", // Nouvelles couleurs
+    "#FF1493", "#00BFFF", "#ADFF2F", "#FF69B4", "#BA55D3", "#9370DB", "#3CB371", "#FFB6C1", // Plus de couleurs
+    "#FF7F50", "#6495ED", "#7FFF00", "#FF6347", "#DDA0DD", "#8A2BE2", "#20B2AA", "#FFA07A"  // Encore plus de couleurs
+  ];
 
   useEffect(() => {
     modeServiceInstance.getMode().then((data) => {
       setMode(data.mode);
     });
-    function getRandomColor() {
-      const letters = '012233445566778899AABBCCCDEEFF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
 
     spaceService.getSpace().then((data) => {
       const widths = [];
       const sportsData = [];
       let currentWidth = 0;
+      let colorIndex = 0;
+
       Object.entries(data).forEach(([sport, size]) => {
         if (sport !== 'Total') {
           const width = (size / data.Total) * 100;
@@ -74,9 +73,10 @@ function Profile() {
           currentWidth += width;
           sportsData.push({
             name: sport,
-            color: getRandomColor(),
+            color: predefinedColors[colorIndex % predefinedColors.length],
             width: width,
           });
+          colorIndex++;
         }
       });
       setWidths(widths);
@@ -85,10 +85,9 @@ function Profile() {
       console.error("Error fetching space data:", error);
     });
 
-    const currentUser = authService.getCurrentUser();
+    const currentUser = useAuthStore.getState().user;
     setUser(currentUser);
   }, []);
-
 
   function setModeTest(mode) {
     const datamode = { event_id: null, mode: mode };
@@ -102,8 +101,7 @@ function Profile() {
 
   useEffect(() => {
     if (user) {
-
-      paramService.getByUserId(user.user.id).then((paramData) => {
+      paramService.getByUserId(user.id).then((paramData) => {
         const paramDataItem = paramData?.[0] || {};
         setParam(paramDataItem);
 
@@ -385,22 +383,27 @@ function Profile() {
                     </Stack>
 
                     <TextField
-                      type="time"
-                      value={veille.restart_at}
-                      onInput={(e) => {
-                        console.log("Input changed", e.target.value);
-                        const updatedVeille = {
-                          ...veille,
-                          restart_at: e.target.value,
-                        };
-                        updatedVeille01(updatedVeille);
-                      }}
-                      required
-                      margin="normal"
-                      inputProps={{
-                        step: 300, // Pas de 5 minutes pour la sélection de l'heure
-                      }}
-                    />
+      type="time"
+      value={veille.restart_at}
+      onChange={(e) => {
+        const updatedVeille = {
+          ...veille,
+          restart_at: e.target.value,
+        };
+        setVeille(updatedVeille);
+
+        // Définir un délai avant d'envoyer la mise à jour
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          updatedVeille01(updatedVeille);
+        }, 1000); // Attendre 1 seconde après la dernière entrée
+      }}
+      required
+      margin="normal"
+      inputProps={{
+        step: 300, // Pas de 5 minutes pour la sélection de l'heure
+      }}
+    />
                   </Stack>
                   {/*  <Stack>
                     <Slider

@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 import CloseIcon from "@mui/icons-material/Close";
 import AuthService from "../../services/authService";
+import useAuthStore from "../../stores/authStore";
 
 function ChangePassword() {
   const { t } = useTranslation();
@@ -23,14 +24,11 @@ function ChangePassword() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("user"));
     if (newPassword !== confirmPassword) {
       setError(t("Login.passwordMismatch"));
     }
     try {
       await AuthService.changePassword(newPassword);
-      user.user.firstLogin = 0;
-      localStorage.setItem("user", JSON.stringify(user));
       setSuccess(true);
       setError(null);
       AuthService.logout();
@@ -40,9 +38,12 @@ function ChangePassword() {
     }
   }
 
-  function disconnect() {
-    AuthService.logout();
-    window.location.reload();
+ async function disconnect() {
+    const { clearToken, clearUser } = useAuthStore.getState();
+    clearToken();
+    clearUser();
+    await AuthService.logout();
+
   }
 
   return (
