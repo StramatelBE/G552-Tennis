@@ -7,7 +7,6 @@ import translationFR from "./fr.json";
 import translationPL from "./pl.json";
 import translationDE from "./de.json";
 import translationES from "./es.json";
-import translationNL from "./nl.json";
 
 i18n
   .use(LanguageDetector)

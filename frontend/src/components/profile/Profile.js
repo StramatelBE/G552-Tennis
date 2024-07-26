@@ -381,7 +381,7 @@ function Profile() {
                       <IconButton disabled>
                         <ModeNightIcon sx={{ color: "text.secondary" }} />
                       </IconButton>
-                      <Typography>heure de redémarrage:</Typography>
+                      <Typography>{t("Profile.restartAt")}</Typography>
                     </Stack>
 
                     <TextField

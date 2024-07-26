@@ -24,6 +24,7 @@
     "info": "Informations",
     "account": "Compte",
     "automaticStandby": "Mise en veille automatique",
+    "restartAt": "Heure de redémarrage",
     "Dialog": {
       "chooseTime": "Choisir le temps",
       "pleaseSelectMinutesAndSeconds": "Veuillez sélectionner les minutes et les secondes"
