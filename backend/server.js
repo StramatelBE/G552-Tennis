@@ -109,6 +109,12 @@ const activeSessionsRoutes = require("./Routes/activeSessionsRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const spaceRoutes = require("./Routes/spaceRoutes");
 const modeRoutes = require("./Routes/modeRoutes");
+const dateRoutes = require("./Routes/dateRoutes");
+app.get('/dates', (req, res) => {
+    const serverDate = new Date();
+    res.json({ date: serverDate });
+  });
+
 app.get("/qrcode", async (req, res) => {
     try {
         const ssid = process.env.SSID;
@@ -135,6 +141,7 @@ app.use("/users", userRoutes);
 app.use("/mode", modeRoutes);
 app.use("/space", spaceRoutes);
 
+
 app.use(checkToken);
 
 
@@ -160,6 +167,7 @@ app.use("/params", paramRoutes);
 app.use("/veilles", veilleRoutes);
 
 app.use("/admin", adminRoutes);
+
 
 User.getInstance().createTable();
 

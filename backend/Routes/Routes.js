@@ -9,5 +9,6 @@ module.exports = {
     buttonRoutes: require("./buttonRoutes"),
     paramRoutes: require("./paramRoutes"),
     veilleRoutes: require("./veilleRoutes"),
-    modeRoutes: require("./modeRoutes")
+    modeRoutes: require("./modeRoutes"),
+    dateRoutes: require("./dateRoutes"),
 };
