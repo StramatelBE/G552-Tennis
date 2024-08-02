@@ -29,9 +29,6 @@ i18n
       es: {
         translation: translationES,
       },
-      nl: {
-        translation: translationNL,
-      },
     },
     detection: {
       order: ["localStorage", "navigator"], // vérifie d'abord localStorage, puis la langue du navigateur
