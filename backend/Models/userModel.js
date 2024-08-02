@@ -88,7 +88,7 @@ class User {
             username: sport,
             password: sport,
             role: "user",
-            language: "fr",
+            language: "en",
           };
           const folderName = `${process.env.UPLOAD_PATH}${user.username}`;
           if (!fs.existsSync(folderName)) {
