@@ -69,7 +69,7 @@
     "add": "Ajouter des Medias avec +",
     "upload": "Télécharger",
     "Dialog": {
-      "areYouSureToDelete": "Do you want to delete this media?"
+      "areYouSureToDelete": "Souhaitez vous supprimer ce média ?"
     }
   },
   "Dialog": {
@@ -78,7 +78,7 @@
     "delete": "Supprimer",
     "close": "Fermer",
     "save": "Enregistrer",
-    "confirmDeletion": "confirmer la suppression",
+    "confirmDeletion": "Confirmer la suppression",
     "yes": "Oui",
     "no": "Non"
   },
@@ -91,9 +91,9 @@
     "serialNumber": "Numéro de série",
     "canalNumber": "Numéro de canal",
     "ipAddress": "Adresse IP",
-    "uploadButton": "upload",
+    "uploadButton": "Téléverser",
     "Dialog": {
-      "password": "mot de passe"
+      "password": "Mot de passe"
     }
   }
 }
