@@ -10,13 +10,10 @@ class EventMediaController {
 
   create = (req, res) => {
     const { mediaId, eventId, duration, userId, media_pos_in_event } = req.body;
-
-    // Vérifier si la mediaId correspond à une vidéo
     this.media
       .getById(mediaId)
       .then((media) => {
         if (media && media.type === "video") {
-          // Obtenir la durée de la vidéo en utilisant fluent-ffmpeg
           ffmpeg.ffprobe(
             process.env.MEDIA_DISPLAY_PATH + media.path,
             (err, metadata) => {
@@ -26,7 +23,6 @@ class EventMediaController {
               } else {
                 const videoDuration = metadata.format.duration; // Durée de la vidéo en secondes
 
-                // Ajouter la durée de la vidéo à l'événement
                 this.eventmedia
                   .create({
                     mediaId,
@@ -36,7 +32,7 @@ class EventMediaController {
                     media_pos_in_event,
                   })
                   .then((eventmedia) => {
-                    res.status(201).json(eventmedia);
+                    res.status(201).json(eventmedia); // Retourne le nouvel eventmedia
                   })
                   .catch((err) => {
                     console.log(err);
@@ -46,11 +42,11 @@ class EventMediaController {
             }
           );
         } else {
-          // Créer l'événement sans la durée de la vidéo
+          console.log("pas de video");
           this.eventmedia
             .create({ mediaId, eventId, userId, media_pos_in_event, duration })
             .then((eventmedia) => {
-              res.status(201).json(eventmedia);
+              res.status(201).json(eventmedia); // Retourne le nouvel eventmedia
             })
             .catch((err) => {
               console.log(err);
@@ -115,6 +111,7 @@ class EventMediaController {
   };
   updateMediaPositions = (req, res) => {
     const datas = req.body;
+    console.log(datas);
     const promises = datas.map((dataPosition) => {
       const event_media_id = dataPosition.event_media_id;
       const newPosition = dataPosition.media_pos_in_event;

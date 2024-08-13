@@ -200,12 +200,8 @@ function MediaAndDiaporamaManager() {
 
         // Triez destClone en fonction de media_pos_in_event
         destClone.sort((a, b) => a.media_pos_in_event - b.media_pos_in_event);
-        const updates = destClone.map((media, index) => {
-          return {
-            event_media_id: media.event_media_id,
-            media_pos_in_event: index + 1,
-          };
-        });
+
+
         // Appel à la méthode create() pour ajouter le nouvel élément multimédia
         EventMediaService.create({
           mediaId: item.idBdd,
@@ -213,7 +209,20 @@ function MediaAndDiaporamaManager() {
           duration: 1,
           userId: useAuthStore.getState().user.id, // Utilisation du store pour obtenir l'ID de l'utilisateur
           media_pos_in_event: destination.index + 1,
-        }).then((createResult) => {
+        }).then((result) => {
+          console.log(result.id);
+          const updates = destClone.map((media, index) => {
+            if (media.event_media_id === undefined) {
+              return {
+                event_media_id: result.id,
+                media_pos_in_event: index + 1,
+              };
+            }
+            return {
+              event_media_id: media.event_media_id,
+              media_pos_in_event: index + 1,
+            };
+          });
           // Une fois que la promesse create() est résolue, appel à la méthode update() pour mettre à jour les positions des éléments multimédias
           EventMediaService.update(updates).then(() => {
             getEvents();

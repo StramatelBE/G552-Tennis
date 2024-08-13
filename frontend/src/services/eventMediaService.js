@@ -63,12 +63,7 @@ class EventMediaService {
         },
         body: JSON.stringify(eventMedia),
       });
-      if (response.ok) {
-        return true;
-      } else {
-        console.error("Error creating event media", response.statusText);
-        return null;
-      }
+      return response.json();
     } catch (error) {
       throw error;
     }

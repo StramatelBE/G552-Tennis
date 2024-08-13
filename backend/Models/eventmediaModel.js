@@ -25,11 +25,11 @@ class EventMedia {
         `INSERT INTO event_media (event_id, media_id, media_dur_in_event, media_pos_in_event)
                  VALUES (?, ?, ?, ?)`,
         [event.eventId, event.mediaId, event.duration, 1],
-        (err) => {
+        function (err) { // Utilisation de 'function' pour accéder à 'this'
           if (err) {
             reject(err);
           } else {
-            resolve();
+            resolve({ id: this.lastID }); // Retourne l'ID du nouvel enregistrement
           }
         }
       );
