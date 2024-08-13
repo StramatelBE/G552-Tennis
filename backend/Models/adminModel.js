@@ -19,7 +19,6 @@ class Admin {
       if (err) {
         console.error("Error creating admin table:", err.message);
       } else {
-        console.log("Admin table created.");
         this.checkAndInsertInitialAdminRow();
       }
     });
@@ -52,8 +51,6 @@ class Admin {
           err.message
         );
         console.log(err);
-      } else {
-        console.log("Initial row inserted into admin table.");
       }
     });
   }

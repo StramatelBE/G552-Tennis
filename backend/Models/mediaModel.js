@@ -47,8 +47,6 @@ class Media {
   }
 
   create(file, user_id, username, thumbnailPath) {
-    console.log(file);
-    console.log(thumbnailPath);
 
     const originalFileName = file.originalname;
 

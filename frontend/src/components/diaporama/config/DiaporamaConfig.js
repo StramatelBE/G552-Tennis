@@ -62,7 +62,6 @@ function DiaporamaConfig(props) {
     try {
       const result = await modeServiceInstance.getMode();
       setMode(result);
-      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -105,7 +104,6 @@ function DiaporamaConfig(props) {
     if (activeMediaIndex === 0) {
       setActiveMediaIndex(props.eventMedia[0].medias.length - 1);
     } else {
-      console.log((prevIndex) => prevIndex - 1);
       setActiveMediaIndex((prevIndex) => prevIndex - 1);
     }
   }
@@ -118,9 +116,7 @@ function DiaporamaConfig(props) {
     }
   }
 
-  function updateNameEvent() {
-    console.log("updateNameEvent");
-  }
+
   function toggleAutoPlay() {
     setIsAutoPlayEnabled((prevState) => !prevState);
   }
@@ -161,7 +157,6 @@ function DiaporamaConfig(props) {
 
   async function deleteEventMedia() {
     const eventMediaDelete = props.eventMedia[0].medias[idEventMediaDelete].id;
-    console.log(props.eventMedia[0].medias[idEventMediaDelete]);
     try {
       await eventMediaService.delete(eventMediaDelete);
       await getMediasByID();
@@ -196,7 +191,6 @@ function DiaporamaConfig(props) {
   }
 
   function startEvent(event) {
-    console.log(event);
     const mode = { event_id: event.id, mode: "diaporama" };
     try {
       modeService.setMode(mode);
@@ -214,7 +208,6 @@ function DiaporamaConfig(props) {
   };
 
   function addPanel() {
-    console.log("test", props.id);
     eventMediaService.addPanel(props.id, props.eventMedia[0].medias.length).then((res) => {
 
       getMediasByID();
@@ -257,7 +250,7 @@ function DiaporamaConfig(props) {
             >
               <EditIcon sx={{ color: "secondary.main" }} />
             </IconButton>
-         {/*    <IconButton
+            {/*    <IconButton
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
@@ -300,7 +293,7 @@ function DiaporamaConfig(props) {
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {props.eventMedia[0]?.medias.length ? (
                 <Box className="containerPage">
-                  <TableContainer sx={{height: "100%"}}>
+                  <TableContainer sx={{ height: "100%" }}>
                     <Table
                       sx={{ borderCollapse: "separate", borderSpacing: 0 }}
                     >

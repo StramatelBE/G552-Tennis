@@ -21,14 +21,11 @@ function LanguageSelector() {
     i18n.changeLanguage(selectedLanguage);
     localStorage.setItem("i18nextLng", selectedLanguage);
     try {
-      
+
       authService.updateLanguage(selectedLanguage, user.id);
     }
     catch (error) {
       console.error("Error during language change:", error);
-    }
-    finally {
-      console.log("Language changed to:", selectedLanguage);
     }
   };
 

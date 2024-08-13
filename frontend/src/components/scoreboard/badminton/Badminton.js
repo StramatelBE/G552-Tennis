@@ -42,7 +42,7 @@ function Badminton() {
     setsPlayer2: 0,
     server: "",
   });
-/*   const [timer, setTimer] = useState(0); */
+  /*   const [timer, setTimer] = useState(0); */
   const [winner, setWinner] = useState("");
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -67,7 +67,6 @@ function Badminton() {
   };
 
   const setData = async (data) => {
-    console.log("data02", data);
     setGameState({
       player1: data.nom_team1,
       player2: data.nom_team2,
@@ -218,7 +217,7 @@ function Badminton() {
     }
 
     await checkWinner(gameState.scorePlayer1, newScore, gameState.player2);
-};
+  };
 
 
   function changeServer(server) {
@@ -246,7 +245,6 @@ function Badminton() {
   };
 
   const resetGame = async () => {
-    console.log("resetGame");
     setWinner("");
     try {
       await ScoreService.update({

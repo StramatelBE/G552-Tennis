@@ -48,7 +48,6 @@ class AdminController {
   };
 
   get = (req, res) => {
-    console.log("test");
     this.admin
       .getAdmin()
       .then((admin) => {
@@ -62,7 +61,6 @@ class AdminController {
   upload = upload.single('file');
 
   handleFileUpload = (req, res) => {
-    console.log(req.file);
     try {
       if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });

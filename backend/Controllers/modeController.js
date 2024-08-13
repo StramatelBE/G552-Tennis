@@ -8,12 +8,12 @@ const sharedEmitter = require('../Utils/SharedEmitter');
 class ModeController {
     constructor() {
         this.mode = new Mode();
-      /*   this.client = net.createConnection({ path: socketPath }, () => {
-            console.log('Connected to server!');
-        }); */
-      /*   this.mode.events.on('updated', (data) => {
-            this.client.write(JSON.stringify(data) + '\n');
-        }); */
+        /*   this.client = net.createConnection({ path: socketPath }, () => {
+              console.log('Connected to server!');
+          }); */
+        /*   this.mode.events.on('updated', (data) => {
+              this.client.write(JSON.stringify(data) + '\n');
+          }); */
     }
 
     create = (req, res) => {
@@ -27,8 +27,7 @@ class ModeController {
     }
 
     update = (req, res) => {
-        console.log(req.body, req.params.id);
-        this.mode.update(req.body , req.params.id)
+        this.mode.update(req.body, req.params.id)
             .then(() => {
                 sharedEmitter.emit('mode-updated', req.body);
                 res.status(200).json({ message: 'Modes updated successfully' });
@@ -39,10 +38,8 @@ class ModeController {
     }
 
     getAll = (req, res) => {
-        console.log("getall");
         this.mode.getAll()
             .then((modes) => {
-                console.log(modes);
                 res.status(200).json(modes[0]);
             })
             .catch((err) => {

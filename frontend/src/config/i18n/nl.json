@@ -1,0 +1,99 @@
+{
+  "Macro": {
+    "title": "Macro",
+    "number": "aantal",
+    "slideshow": "diavoorstelling",
+    "none": "geen",
+    "Explanation": {
+      "1": "Score weergeven",
+      "11": "start animatie 1 punt",
+      "12": "start animatie 2 punten",
+      "13": "start animatie 3 punten",
+      "14": "start time-out animatie",
+      "15": "start fout animatie"
+    }
+  },
+  "Profile": {
+    "title": "Instellingen",
+    "application": "Applicatie",
+    "changePassword": "Wachtwoord wijzigen",
+    "darkMode": "Donkere modus",
+    "usedStorageSpace": "Gebruikte opslagruimte",
+    "panelsTest": "Panelentest",
+    "languages": "Taal",
+    "info": "Informatie",
+    "account": "Account",
+    "automaticStandby": "Automatische stand-by",
+    "restartAt": "Herstarttijd",
+    "Dialog": {
+      "chooseTime": "Kies tijd",
+      "pleaseSelectMinutesAndSeconds": "Selecteer alstublieft minuten en seconden"
+    }
+  },
+  "Diaporama": {
+    "title": "afspeellijsten",
+    "emptyListMessage": "Voeg afspeellijsten toe met +",
+    "listTitle": "Lijst van afspeellijsten",
+    "Dialog": {
+      "addNew": "Nieuwe afspeellijst toevoegen",
+      "name": "Naam",
+      "areYouSureToDelete": "Weet u zeker dat u wilt verwijderen",
+      "areYouSureToDeleteMediaEvent": "Weet u zeker dat u dit afspeellijst-evenement wilt verwijderen?"
+    },
+    "DialogUpdate": {
+      "newName": "Nieuwe naam voor de afspeellijst",
+      "updateName": "Naam van de afspeellijst bijwerken"
+    }
+  },
+  "Login": {
+    "passwordMismatch": "Wachtwoorden komen niet overeen",
+    "passwordChange": "Wachtwoord wijzigen",
+    "passwordChangeSuccess": "Wachtwoord succesvol gewijzigd",
+    "newPassword": "Nieuw wachtwoord",
+    "confirmNewPassword": "Bevestig nieuw wachtwoord",
+    "errorMessage": "Onjuiste gebruikersnaam of wachtwoord",
+    "passwordAdmin": "Beheerderswachtwoord",
+    "title": "Inloggen",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "loginButton": "Inloggen",
+    "lostPassword": "Wachtwoord vergeten",
+    "Dialog": {
+      "doYouReallyWantToLogout": "Wilt u echt uitloggen?",
+      "userAlreadyConnected": "Er is al een gebruiker ingelogd",
+      "doYouWantToDisconnect": "Wilt u deze gebruiker uitloggen?"
+    }
+  },
+  "Media": {
+    "title": "Media",
+    "add": "Voeg media toe met +",
+    "upload": "Uploaden",
+    "Dialog": {
+      "areYouSureToDelete": "Weet u zeker dat u dit medium wilt verwijderen?"
+    }
+  },
+  "Dialog": {
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
+    "delete": "Verwijderen",
+    "close": "Sluiten",
+    "save": "Opslaan",
+    "confirmDeletion": "Verwijdering bevestigen",
+    "yes": "Ja",
+    "no": "Nee"
+  },
+  "Scoreboard": {
+    "Guest": "Gast",
+    "Home": "Thuis"
+  },
+  "Admin": {
+    "title": "Beheer",
+    "serialNumber": "Serienummer",
+    "canalNumber": "Kanaalnummer",
+    "ipAddress": "IP-adres",
+    "uploadButton": "Uploaden",
+    "Dialog": {
+      "password": "Wachtwoord"
+    }
+  }
+}

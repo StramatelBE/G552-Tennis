@@ -141,7 +141,6 @@ class Scoring {
   }
 
   getByUserId(userId) {
-    console.log("getByUserId", userId);
     return new Promise((resolve, reject) => {
       db.all(
         `SELECT * FROM scoring WHERE user_id = ?`,

@@ -110,7 +110,6 @@ class Param {
   }
 
   updateEventAuto(userId, veilleId, eventAuto) {
-    console.log('updateEventAuto', userId, veilleId, eventAuto);
     return new Promise((resolve, reject) => {
       db.run(
         `UPDATE param

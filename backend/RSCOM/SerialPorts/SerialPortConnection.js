@@ -11,7 +11,6 @@ let Closing = false;
 
 class SerialPortConnection {
     constructor() {
-        console.log('Serial Port Initialization');
         this.currentCOMPorts = [];
         this.connection = null;
         this.currentCOMPortName = "";

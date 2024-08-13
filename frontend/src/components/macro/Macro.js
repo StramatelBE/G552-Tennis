@@ -41,7 +41,6 @@ function Macro() {
 
   function getMacro() {
     macroService.getById().then((result) => {
-      console.log(result);
       const sortedData = result.sort((a, b) => a.button_id - b.button_id);
       const updatedDataWithIndex = sortedData.map((macro, index) => {
         return {

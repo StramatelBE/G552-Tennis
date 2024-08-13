@@ -8,7 +8,7 @@ const { log } = require('console');
 const veille = new Veille();
 
 const restartJob = {
-  scheduleReboot: function(rebootHour, rebootMinute) {
+  scheduleReboot: function (rebootHour, rebootMinute) {
     cron.schedule(`${rebootMinute} ${rebootHour} * * *`, () => {
       exec('sudo reboot', (error, stdout, stderr) => {
         if (error) {
@@ -19,22 +19,17 @@ const restartJob = {
           console.error(`Error output from reboot command: ${stderr}`);
           return;
         }
-        console.log(`Scheduled reboot executed at ${rebootHour}:${rebootMinute}`);
       });
     }, {
       scheduled: true,
       timezone: "Europe/Paris" // Changez selon votre fuseau horaire
     });
   },
-  start: function() {
+  start: function () {
     veille.getAll().then(results => {
-        console.log(results)
       if (results && results.length > 0) {
         const firstResult = results[0];
-        console.log(results);
-        console.log(firstResult);
         const restartTime = firstResult.restart_at; // Format "hh:mm"
-        console.log(restartTime);
         const [rebootHour, rebootMinute] = restartTime.split(':').map(String);
         this.scheduleReboot(rebootHour, rebootMinute);
       } else {

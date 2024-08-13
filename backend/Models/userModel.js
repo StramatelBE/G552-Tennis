@@ -46,7 +46,6 @@ class User {
     const checkTableEmptySql = `SELECT COUNT(id) AS count FROM users`;
 
     db.get(checkTableEmptySql, (err, row) => {
-      console.log("row", row.count);
       if (err) {
         console.error("Error checking activeSessions table:", err.message);
       } else if (row.count === 0) {
@@ -69,18 +68,16 @@ class User {
           eSport.Training,
           eSport.FreeSport,
         ];
-       
-      module.exports = eSport;
+
+        module.exports = eSport;
         const mediaFolder = `${process.env.UPLOAD_PATH}`;
         if (!fs.existsSync(mediaFolder)) {
-          console.log("Folder does not exist");
           try {
             fs.mkdirSync(mediaFolder);
           }
           catch (err) {
             console.error("Error creating media folder:", err.message, "Might be due to missing server on localhost:3000 or just path issue.");
           }
-          console.log("Folder created");
         }
 
         sports.forEach((sport) => {
@@ -92,26 +89,21 @@ class User {
           };
           const folderName = `${process.env.UPLOAD_PATH}${user.username}`;
           if (!fs.existsSync(folderName)) {
-            console.log("Folder does not exist");
             try {
               fs.mkdirSync(folderName);
             }
             catch (err) {
               console.error("Error creating user folder:", err.message, "Might be due to missing server on localhost:3000 or just path issue.");
-            console.log("Folder created");
+            }
           }
-        }
 
           this.create(user);
         });
-      } else {
-        console.log("Table users already initialized");
       }
     });
   }
 
   async create(user) {
-    console.log("user", user);
     try {
       const hash = await bcrypt.hash(user.password, 10);
       let userId;
@@ -131,8 +123,6 @@ class User {
           }
         );
       });
-
-      console.log("newUser", userId);
 
       // Create 10 macros for the new user
       const macroPromises = [];
@@ -157,7 +147,6 @@ class User {
   }
 
   changePassword(user) {
-    console.log("changePassword", user);
     return new Promise((resolve, reject) => {
       bcrypt.hash(user.newPassword, 10, (err, hash) => {
         if (err) {
@@ -264,7 +253,7 @@ class User {
       );
     });
   }
-        
+
 
   getByUsername(username) {
     return new Promise((resolve, reject) => {
@@ -315,7 +304,6 @@ class User {
       (err, user) => {
         console.log(err, user);
         if (err) {
-          console.log(`Error looking up user with username: ${username}`, err);
           callback(err, null);
         } else {
           callback(null, user);
@@ -323,7 +311,7 @@ class User {
       }
     );
   }
-  
+
 
   getAll() {
     return new Promise((resolve, reject) => {

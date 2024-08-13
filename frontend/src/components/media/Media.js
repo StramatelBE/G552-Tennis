@@ -151,9 +151,7 @@ function Medias(props) {
     const imageFiles = files.filter(file => file.type.split("/")[0] === "image");
     const videoFiles = files.filter(file => file.type.split("/")[0] === "video");
 
-
-    console.log(imageFiles,videoFiles);
-    const duplicate = files.find(file => 
+    const duplicate = files.find(file =>
       props.eventMedia[1].medias.some(media => media.originalFileName === file.name)
     );
 
@@ -441,9 +439,11 @@ function Medias(props) {
                           <TableBody >
                             {props.eventMedia[1].medias.map((file, index) => (
                               <TableRow
-                              sx={{ backgroundColor: index % 2 === 0 ? theme.palette.background : theme.palette.action.hover,"&:last-child td, &:last-child th": {
-                                border: 0,
-                              }, }}
+                                sx={{
+                                  backgroundColor: index % 2 === 0 ? theme.palette.background : theme.palette.action.hover, "&:last-child td, &:last-child th": {
+                                    border: 0,
+                                  },
+                                }}
                                 key={file.id}
 
                               >

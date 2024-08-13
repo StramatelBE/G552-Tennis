@@ -7,7 +7,6 @@ class ModeService {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else {
         console.error(
@@ -22,7 +21,6 @@ class ModeService {
   }
 
   async setMode(mode) {
-    console.log(JSON.stringify(mode));
     try {
       const response = await fetchWithAuth(`${URL_API}/mode/1`, {
         method: "PUT",

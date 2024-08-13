@@ -50,7 +50,6 @@ class EventMedia {
             console.log(err);
             reject(err);
           } else {
-            console.log("medias nb", medias.length);
             resolve(medias);
           }
         }
@@ -78,7 +77,6 @@ class EventMedia {
     return new Promise((resolve, reject) => {
       db.run("DELETE FROM event_media WHERE id = ?", [mediaId], (err) => {
         if (err) {
-          console.log("deleteAllByMedia error", err);
           reject(err);
         } else {
           resolve();
@@ -155,7 +153,6 @@ class EventMedia {
   }
   addPanel(eventId, media_pos_in_event) {
     const media_dur_in_event = 10;
-    console.log(eventId);
     return new Promise((resolve, reject) => {
       db.run(
         `INSERT INTO event_media (event_id, media_id, media_dur_in_event, media_pos_in_event)

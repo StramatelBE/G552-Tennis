@@ -8,13 +8,12 @@ class ScoreService {
   // Get the current user's ID
   getCurrentUserId() {
     const currentUser = useAuthStore.getState().user;
-    return currentUser ?  currentUser.id : null; // Adjusted to match expected user object structure
+    return currentUser ? currentUser.id : null; // Adjusted to match expected user object structure
   }
 
   // Get all scores for the current user
   async getByUserId() {
     const userId = this.getCurrentUserId();
-    console.log("userId", userId);
     if (!userId) {
       throw new Error("No user id found");
     }

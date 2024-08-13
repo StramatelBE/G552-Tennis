@@ -33,12 +33,11 @@ function ChangePassword() {
       setError(null);
       AuthService.logout();
     } catch (error) {
-      console.log("error01", error);
       setError(error);
     }
   }
 
- async function disconnect() {
+  async function disconnect() {
     const { clearToken, clearUser } = useAuthStore.getState();
     clearToken();
     clearUser();

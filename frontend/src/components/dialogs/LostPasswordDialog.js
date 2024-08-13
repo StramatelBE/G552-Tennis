@@ -32,14 +32,14 @@ function LostPasswordDialog({ open, onClose, users }) {
   };
 
   function handleSubmit(e) {
-    console.log("user", user);
+
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
       setError("Les mots de passe ne correspondent pas");
       return;
     } else if (adminPassword === "adminstramatel") {
-      console.log("user", user);
+
       authService
         .lostPassword(newPassword, user.id)
         .then(() => {

@@ -68,7 +68,6 @@ class EventMediaController {
     this.eventmedia
       .getAllByEvent(req.params.eventId)
       .then((eventmedias) => {
-        console.log("eventmedias", eventmedias, req.params.eventId);
         res.status(200).json(eventmedias);
       })
       .catch((err) => {
@@ -102,8 +101,6 @@ class EventMediaController {
       });
   };
   deleteAllByMedia = (req, res) => {
-    console.log("deleteAllByMedia");
-    console.log(req.params.id);
     const mediaId = req.params.id;
     this.eventmedia
       .deleteAllByMedia(mediaId)
@@ -135,8 +132,6 @@ class EventMediaController {
 
   updateMediaDuration = (req, res) => {
     const { position, eventId, mediaId, duration } = req.body;
-    console.log("updateMediaDuration", position, eventId, mediaId, duration);
-
     this.eventmedia
       .updateDuration(eventId, mediaId, duration, position)
       .then(() => {
@@ -149,10 +144,7 @@ class EventMediaController {
   };
 
   addPanel = (req, res) => {
-
     const { eventId, media_pos_in_event } = req.body;
-    console.log("addPanel", eventId, media_pos_in_event);
-
     this.eventmedia
       .addPanel(eventId, media_pos_in_event)
       .then(() => {

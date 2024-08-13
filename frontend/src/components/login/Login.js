@@ -72,7 +72,6 @@ function Login() {
         UserConnectedDialogOpen();
       }
     } catch (error) {
-      console.log(error.message);
       setError(t("Login.errorMessage"));
     }
   }

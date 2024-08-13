@@ -29,7 +29,6 @@ function TimerPickerDialog({ open, onClose, setTimer }) {
   };
 
   const handleConfirm = () => {
-    /* console.log(`Timer set to ${minutes} minutes and ${seconds} seconds`); */
     const timeInSeconds = minutes * 60 + seconds;
     setTimer(timeInSeconds);
     setMinutes(0);

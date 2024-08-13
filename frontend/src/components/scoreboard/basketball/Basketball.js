@@ -37,7 +37,6 @@ function Basketball() {
   const [gameState, setGameState] = useState({});
   useEffect(() => {
     getData().then((data) => {
-      console.log(data);
       setGameState(data);
     });
   }, []);

@@ -17,7 +17,6 @@ class ActiveSessionController {
   };
 
   logout = (req, res) => {
-    console.log("logout");
     this.activeSession
       .logout(req)
       .then((session) => {
@@ -28,7 +27,7 @@ class ActiveSessionController {
       });
   };
 
-  
+
   getByUserId = (req, res) => {
     this.activeSession
       .getByUserId(req)
@@ -41,7 +40,6 @@ class ActiveSessionController {
   };
 
   getAll = (req, res) => {
-    console.log("getAll");
     this.activeSession
       .getAll()
       .then((sessions) => {

@@ -91,8 +91,7 @@ function CropsModal(props) {
       const image = await createImage(filesToCrop[0]);
       setImageSize({ width: image.width, height: image.height });
     };
-    console.log();
-    console.log(filesToCrop[currentFileIndex]);
+
 
     if (filesToCrop[0]) {
       loadImage();

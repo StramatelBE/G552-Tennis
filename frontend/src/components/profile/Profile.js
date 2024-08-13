@@ -92,7 +92,7 @@ function Profile() {
   function setModeTest(mode) {
     const datamode = { event_id: null, mode: mode };
     modeServiceInstance.setMode(datamode).then((data) => {
-      console.log("data", data);
+
       setMode(mode);
     });
   }
@@ -109,7 +109,6 @@ function Profile() {
         veilleService
           .getByUserId(paramDataItem.veille_id)
           .then((veilleData) => {
-            console.log("veilleData", veilleData);
             setVeille(veilleData || {});
 
             // Mettre à jour l'état avec les données de veille
@@ -143,9 +142,7 @@ function Profile() {
 
   function updatedVeille01(veille) {
     setVeille(veille);
-    console.log(veille);
     veilleService.update(veille).then((response) => {
-      console.log(response);
     });
   }
 
@@ -383,27 +380,27 @@ function Profile() {
                     </Stack>
 
                     <TextField
-      type="time"
-      value={veille.restart_at}
-      onChange={(e) => {
-        const updatedVeille = {
-          ...veille,
-          restart_at: e.target.value,
-        };
-        setVeille(updatedVeille);
+                      type="time"
+                      value={veille.restart_at}
+                      onChange={(e) => {
+                        const updatedVeille = {
+                          ...veille,
+                          restart_at: e.target.value,
+                        };
+                        setVeille(updatedVeille);
 
-        // Définir un délai avant d'envoyer la mise à jour
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          updatedVeille01(updatedVeille);
-        }, 1000); // Attendre 1 seconde après la dernière entrée
-      }}
-      required
-      margin="normal"
-      inputProps={{
-        step: 300, // Pas de 5 minutes pour la sélection de l'heure
-      }}
-    />
+                        // Définir un délai avant d'envoyer la mise à jour
+                        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                        timeoutRef.current = setTimeout(() => {
+                          updatedVeille01(updatedVeille);
+                        }, 1000); // Attendre 1 seconde après la dernière entrée
+                      }}
+                      required
+                      margin="normal"
+                      inputProps={{
+                        step: 300, // Pas de 5 minutes pour la sélection de l'heure
+                      }}
+                    />
                   </Stack>
                   {/*  <Stack>
                     <Slider

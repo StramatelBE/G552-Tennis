@@ -50,8 +50,6 @@ class Button {
             db.run('COMMIT', (err) => {
                 if (err) {
                     console.error('Could not initialize buttons:', err.message);
-                } else {
-                    console.log('Buttons initialized successfully');
                 }
             });
         });

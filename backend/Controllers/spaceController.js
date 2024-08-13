@@ -14,7 +14,6 @@ class SpaceController {
       };
       const number = parseFloat(size);
       const unit = size.toUpperCase().replace(/[0-9.]/g, '');
-      console.log(number * multipliers[unit]);
       return number * multipliers[unit];
     }
 

@@ -9,7 +9,6 @@ class EventController {
         this.event.create(req.body)
             .then((event) => {
                 sharedEmitter.emit('created', event);
-                console.log("event", event);
                 res.status(201).json(event);
             })
             .catch((err) => {
@@ -18,7 +17,6 @@ class EventController {
     }
 
     update = (req, res) => {
-        console.log(req.body);
         this.event.update(req.body)
             .then((event) => {
                 sharedEmitter.emit('updated', event);
@@ -40,11 +38,9 @@ class EventController {
     }
 
     getById = (req, res) => {
-        console.log(req.params.id);
         this.event.getById(req.params.id)
             .then((event) => {
                 if (event) {
-                    console.log(event);
                     res.status(200).json(event);
                 } else {
                     res.status(404).json({ message: 'Event not found' });
@@ -56,11 +52,9 @@ class EventController {
     }
 
     getByUserId = (req, res) => {
-        console.log(req.params.id);
         this.event.getByUserId(req.params.id)
             .then((event) => {
                 if (event) {
-                    console.log(event);
                     res.status(200).json(event);
                 } else {
                     console.error('Event not found');

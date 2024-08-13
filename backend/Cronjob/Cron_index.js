@@ -1,8 +1,7 @@
-const restartJob = require('./restartJob'); 
+const restartJob = require('./restartJob');
 
 const CronIndex = {
-  startAllJobs: function() {
-    console.log("Starting all CronJobs!")
+  startAllJobs: function () {
     restartJob.start();
   }
 };

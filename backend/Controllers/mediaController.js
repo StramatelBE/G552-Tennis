@@ -13,7 +13,6 @@ class MediaController {
         const username = req.params.user;
         const userFolder = `${process.env.UPLOAD_PATH}${username}`;
         cb(null, userFolder);
-        console.log("userFolder", userFolder);
       },
       filename: (req, file, cb) => {
         const hash = crypto.createHash("sha256");
@@ -37,7 +36,6 @@ class MediaController {
     const username = req.params.user;
     this.upload.single("file")(req, res, (err) => {
       if (err) {
-        console.log(err, "test");
         res.status(500).json({ message: err });
       } else {
         const file = req.file;
@@ -53,7 +51,6 @@ class MediaController {
               size: '380x240'
             })
             .on('end', () => {
-              console.log('Thumbnail generated');
               const relativeThumbnailPath = `/medias/${username}/thumbnails/${file.filename}.png`;
               this.saveMediaToDB(file, req.params.id, username, relativeThumbnailPath, res);
             })
@@ -144,8 +141,6 @@ class MediaController {
         fs.unlink(process.env.MEDIA_DISPLAY_PATH + filePath, (err) => {
           if (err) {
             console.error("Error deleting media file", err);
-          } else {
-            console.log("Media file deleted");
           }
 
 
@@ -153,8 +148,6 @@ class MediaController {
             fs.unlink(process.env.MEDIA_DISPLAY_PATH + thumbnailPath, (err) => {
               if (err) {
                 console.error("Error deleting thumbnail file", err);
-              } else {
-                console.log("Thumbnail file deleted");
               }
             });
           }
@@ -163,7 +156,6 @@ class MediaController {
           this.media
             .delete(req.params.id)
             .then(() => {
-              console.log("delete OK");
               return res.status(204).json({ message: "File deleted successfully" });
             })
             .catch((err) => {

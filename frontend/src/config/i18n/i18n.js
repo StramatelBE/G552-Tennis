@@ -7,6 +7,7 @@ import translationFR from "./fr.json";
 import translationPL from "./pl.json";
 import translationDE from "./de.json";
 import translationES from "./es.json";
+import translationNL from "./nl.json"
 
 i18n
   .use(LanguageDetector)
@@ -29,6 +30,9 @@ i18n
       es: {
         translation: translationES,
       },
+      nl: {
+        translation: translationNL
+      }
     },
     detection: {
       order: ["localStorage", "navigator"], // vérifie d'abord localStorage, puis la langue du navigateur

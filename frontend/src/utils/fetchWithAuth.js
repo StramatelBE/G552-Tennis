@@ -19,7 +19,7 @@ async function fetchWithAuth(url, options = {}) {
       console.log("user", useAuthStore.getState().user);
       useAuthStore.setState({ user: null, token: null });
 
-    
+
     }
 
     return response;

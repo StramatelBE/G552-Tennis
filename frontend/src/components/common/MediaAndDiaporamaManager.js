@@ -64,7 +64,6 @@ function MediaAndDiaporamaManager() {
                 duration: nouveauTemps,
               })
                 .then((result) => {
-                  console.log("Durée du média mise à jour:", result);
                 })
                 .catch((error) => {
                   console.error(
@@ -88,7 +87,6 @@ function MediaAndDiaporamaManager() {
     let newMedias;
     if (id !== undefined) {
       EventMediaService.getAllByEvent(id).then((result) => {
-        console.log("result", result);
         newMedias = result.map((media) => {
           return { ...media, id: media.event_media_id, idBdd: media.id };
         });
@@ -143,7 +141,6 @@ function MediaAndDiaporamaManager() {
   };
   const onDragEnd = (result) => {
     setIsDragging(false);
-    console.log("result", result);
     const { destination, source } = result;
     if (!destination) {
       // Si l'élément multimédia n'est pas déposé dans une colonne
@@ -154,7 +151,6 @@ function MediaAndDiaporamaManager() {
     switch (source.droppableId) {
       case destination.droppableId:
         // Déplacer un élément multimédia dans la même colonne
-        /*  console.log("meme colonne"); */
         const newMedias = Array.from(start.medias);
         newMedias.splice(source.index, 1);
         newMedias.splice(
@@ -166,8 +162,9 @@ function MediaAndDiaporamaManager() {
         setEventMedia((prevState) => {
           const updatedMedias = newMedias.map((media, index) => ({
             ...media,
-            media_pos_in_event: index + 1,
+            media_pos_in_event: index + 1
           }));
+
 
           return prevState.map((column) => {
             if (column.id === start.id) {
@@ -183,8 +180,7 @@ function MediaAndDiaporamaManager() {
         }));
 
         EventMediaService.update(updatesAfterMove)
-          .then((updateResult) => {
-            console.log("Media positions updated:", updateResult);
+          .then(() => {
             getEvents();
           })
           .catch((error) => {

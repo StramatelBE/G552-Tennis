@@ -40,8 +40,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("user", user);
-    console.log("token", token);
     if (darkMode) {
       switchToDarkTheme();
     } else {

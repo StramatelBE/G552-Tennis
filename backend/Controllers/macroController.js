@@ -20,30 +20,30 @@ class MacroController {
     }
 
     async getMacrosByButton(buttonId, sport) {
-        try{
+        try {
             if (buttonId === undefined) throw new Error("No button id given");
-            else if (buttonId === 0) return console.log("Button id is :", buttonId, " Scoring Mode activated");
-        
+            else if (buttonId === 0) return
+
             // Récupérer l'utilisateur par nom de sport
 
             const user = await this.user.getByUsername(sport);
             if (!user) throw new Error(`No user found for sport: ${sport}`);
-        
+
             // Récupérer les macros pour l'utilisateur spécifique et le bouton donné
 
             const macros = await this.macro.getByUserId(user.id)
             if (!macros.length) throw new Error("No macros found for this user");
-            
+
             const userMacrosForButton = macros.filter(macro => macro.button_id === buttonId)
-        
+
             let results = [];
             for (let macro of userMacrosForButton) {
                 const event = await this.event.getById(macro.event_id);
                 if (!event) throw new Error("No event found for this macro");
-        
+
                 const mediaList = await this.eventmedia.getAllByEvent(event.id);
                 if (!mediaList.length) throw new Error("No media found for this event");
-        
+
                 let medias = [];
                 for (let mediaInfo of mediaList) {
                     const media = await this.media.getById(mediaInfo.id);
@@ -54,21 +54,21 @@ class MacroController {
                         duration: mediaInfo.media_dur_in_event
                     });
                 }
-        
+
                 const mode = await this.mode.getAll(); // Supposons que cela récupère le mode correct
-        
+
                 results.push({
                     event: event,
                     medias: medias,
                     mode: buttonId // Assumer que 'mode' est un objet avec un attribut 'mode'
                 });
             }
-        
+
             return results;
         }
-        
 
-        catch(error) {
+
+        catch (error) {
             console.error(error.message);  // This will log the error message.
             return 0;
         }

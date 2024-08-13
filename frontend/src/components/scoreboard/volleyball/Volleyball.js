@@ -34,7 +34,6 @@ function Volleyball() {
   const [gameState, setGameState] = useState({});
   useEffect(() => {
     getData().then((data) => {
-      console.log(data);
       setGameState(data);
     });
   }, []);
@@ -383,11 +382,11 @@ function Volleyball() {
         </Box>
       </Paper>
       <VolleyballSetting
-          open={isSettingOpen}
-          onClose={toggleSettingModal}
-          gameState={gameState}
-          setGameState={setGameState}
-          updateDB={updateDB}
+        open={isSettingOpen}
+        onClose={toggleSettingModal}
+        gameState={gameState}
+        setGameState={setGameState}
+        updateDB={updateDB}
       />
     </Grid>
   );

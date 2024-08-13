@@ -11,7 +11,6 @@ app.post('/auth/signup', (req, res) => {
   // Votre logique pour traiter l'inscription ici
   // Par exemple, vous pouvez enregistrer l'utilisateur dans une base de données
 
-  console.log('Utilisateur inscrit :', user);
 });
 
 // Fonction pour envoyer une requête d'inscription
@@ -23,7 +22,6 @@ const signUp = async (user) => {
       body: JSON.stringify(user),
     });
     const data = await response.json();
-    console.log('Réponse du serveur :', data);
   } catch (error) {
     console.error(error);
   }
@@ -31,9 +29,9 @@ const signUp = async (user) => {
 
 // Exemple de plusieurs utilisateurs à inscrire
 const users = [
-    { username: 'Football', password: 'A1234567', role: 'user' },
-    { username: 'Basketball', password: 'A1234567', role: 'user' },
-    { username: 'Tennis', password: 'A1234567', role: 'user' },
+  { username: 'Football', password: 'A1234567', role: 'user' },
+  { username: 'Basketball', password: 'A1234567', role: 'user' },
+  { username: 'Tennis', password: 'A1234567', role: 'user' },
 ];
 
 // Boucle pour effectuer les requêtes d'inscription

@@ -6,7 +6,6 @@ class ParamController {
   }
 
   create = (req, res) => {
-    console.log(req.body);
     this.param.create(req.body)
       .then(() => {
         res.status(201).json({ message: 'Param created successfully' });
@@ -37,7 +36,6 @@ class ParamController {
   }
 
   updateEventAuto = (req, res) => {
-    console.log('test',req.body);
     const { user_id: userId, veille_id: veilleId, event_auto: eventAuto } = req.body;
 
     this.param.updateEventAuto(userId, veilleId, eventAuto)

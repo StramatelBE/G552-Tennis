@@ -88,8 +88,6 @@ class TennisScore {
         (err) => {
           if (err) {
             console.error("Erreur lors de la création de la table scoring:", err);
-          } else {
-            console.log("Table scoring créée ou déjà existante.");
           }
         }
       );

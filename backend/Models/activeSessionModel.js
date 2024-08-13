@@ -72,7 +72,6 @@ class ActiveSession {
     });
   }
   logout() {
-    console.log("logout");
     return new Promise((resolve, reject) => {
       db.run(
         `UPDATE activeSessions SET userId = NULL ,activeToken = NULL, last_activity = NULL WHERE id = 1`,
@@ -116,7 +115,6 @@ class ActiveSession {
   }
 
   getByUserId(userId) {
-    console.log("getByUserId", userId);
     return new Promise((resolve, reject) => {
       db.get(
         `SELECT * FROM activeSessions WHERE userId = ? ORDER BY last_activity DESC`,

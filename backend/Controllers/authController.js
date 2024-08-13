@@ -9,7 +9,6 @@ const fs = require("fs");
 require("dotenv").config();
 
 const signUp = async (req, res) => {
-  console.log(req.body);
   const folderName = `../../Server/Frontend/public/medias/${req.body.username}`;
   const user = {
     username: req.body.username,
@@ -27,15 +26,10 @@ const signUp = async (req, res) => {
         .json({ message: "Le nom d'utilisateur est déjà utilisé" });
     }
 
-    console.log("signUp");
-
     const newUser = User.getInstance();
 
-    console.log(fs.existsSync(folderName));
     if (!fs.existsSync(folderName)) {
-      console.log("Folder does not exist");
       await fs.mkdirSync(folderName);
-      console.log("Folder created");
     }
 
     const createdUser = await newUser
@@ -86,7 +80,6 @@ const signIn = async (req, res) => {
                 .asHours();
 
               if (activeSession[0].activeToken !== null && inactivity < 2) {
-                console.log("Un autre utilisateur est déjà connecté");
                 return res.status(409).json({
                   error: "Une session est déjà active pour cet utilisateur.",
                   isConnected: true,
@@ -116,7 +109,6 @@ const signIn = async (req, res) => {
                 });
               }
             } else {
-              console.log("Invalid Password!");
               return res.status(401).send({
                 accessToken: null,
                 message: "Invalid Password!",
@@ -134,7 +126,6 @@ const signIn = async (req, res) => {
   }
 };
 const modifyPassword = async (req, res) => {
-  console.log(req.body);
   const newUser = User.getInstance();
   const user = {
     id: req.params.id,
