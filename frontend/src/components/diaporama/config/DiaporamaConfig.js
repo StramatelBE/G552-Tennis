@@ -148,6 +148,8 @@ function DiaporamaConfig(props) {
   }
 
   function openPlayModal() {
+    setCurrentMedia(props.eventMedia[0].medias[0]);
+    setActiveMediaIndex(0);
     setIsPlayModalOpen(true);
   }
 
@@ -160,6 +162,7 @@ function DiaporamaConfig(props) {
     try {
       await eventMediaService.delete(eventMediaDelete);
       await getMediasByID();
+      props.getEvents();
       closeDeleteDialog();
     } catch (error) {
       console.error(error);
