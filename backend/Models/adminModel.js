@@ -82,22 +82,23 @@ class Admin {
       );
     });
   }
+  updateCanal(canal) {
+    return new Promise((resolve, reject) => {
+      db.run(
+        `UPDATE admin SET canal = ?`,
+        [canal],
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
+  }
 }
 
-updateCanal(canal) {
-  return new Promise((resolve, reject) => {
-    db.run(
-      `UPDATE admin SET canal = ?`,
-      [canal],
-      (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      }
-    );
-  });
-}
+
 
 module.exports = Admin;
