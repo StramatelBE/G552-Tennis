@@ -97,6 +97,22 @@ class Admin {
       );
     });
   }
+
+  updateIp(ip) {
+    return new Promise((resolve, reject) => {
+      db.run(
+        `UPDATE admin SET ip = ?`,
+        [ip],
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
+  }
 }
 
 
