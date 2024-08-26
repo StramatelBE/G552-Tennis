@@ -6,9 +6,12 @@ const nBytesToNumber = require('./Utils/nBytesToNumber');
 const AdminController = require("../Controllers/adminController");
 const adminController = new AdminController();
 
+const getIPAddress = require("./Utils/ipAddress");
+
 class Game {
   static State = {
     Channel: '',
+    IP: '',
     Code: '',
     Language: '',
     Mode: '',
@@ -251,7 +254,11 @@ class Game {
 
     // Update the radio channel if the frame is a radio channel frame
     if (toInsert.Code === 0x34) {
+      toInsert.IP = getIpAddress('end0')
       adminController.updateRadioChannel(toInsert.Channel);
+      console.log("Radio Channel: " + toInsert.Channel);
+      adminController.updateIPAddress(toInsert.IP);
+      console.log("IP Address: " + toInsert.IP);
     }
 
     // Function to read the current storage state

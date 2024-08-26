@@ -59,6 +59,17 @@ class AdminController {
       });
   }; 
 
+  updateIpAddress = (ipAddress) => {
+    return this.admin
+      .updateIp(ipAddress)
+      .then(() => {
+        console.log(`IP address updated successfully to ${ipAddress}`);
+      })
+      .catch((err) => {
+        console.error(`Error updating IP address: ${err}`);
+      });
+  }
+
   get = (req, res) => {
     this.admin
       .getAdmin()
