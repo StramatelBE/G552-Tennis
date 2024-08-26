@@ -255,12 +255,13 @@ function Medias(props) {
   }
 
   function addmediatodiaporam(file) {
+    console.log("long",props.eventMedia);
     EventMediaService.create({
       mediaId: file.idBdd,
       eventId: props.id,
       duration: 1,
       userId: useAuthStore.getState().user.id,
-      media_pos_in_event: props.eventMedia[1].medias.length + 1,
+      media_pos_in_event: props.eventMedia[0].medias.length + 1,
     }).then((result) => {
       props.getEvents();
     });
