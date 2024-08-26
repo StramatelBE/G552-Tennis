@@ -380,6 +380,7 @@ function Profile() {
                     </Stack>
 
                     <TextField
+<<<<<<< HEAD
                       type="time"
                       value={veille.restart_at}
                       onChange={(e) => {
@@ -401,6 +402,30 @@ function Profile() {
                         step: 300, // Pas de 5 minutes pour la sélection de l'heure
                       }}
                     />
+=======
+                    type="time"
+                    value={veille.restart_at}
+                    onChange={(e) => {
+                      const updatedVeille = {
+                        ...veille,
+                        restart_at: e.target.value,
+                      };
+                      setVeille(updatedVeille);
+
+        // Définir un délai avant d'envoyer la mise à jour
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          updatedVeille01(updatedVeille);
+        }, 1000); // Attendre 1 seconde après la dernière entrée
+      }}
+      required
+      margin="normal"
+      inputProps={{
+        step: 300, // Pas de 5 minutes pour la sélection de l'heure
+      }}
+    />
+    
+>>>>>>> merging
                   </Stack>
                   {/*  <Stack>
                     <Slider

@@ -30,7 +30,7 @@ class User {
             role TEXT,
             firstLogin INTEGER,
             active_token TEXT,
-            language TEXT DEFAULT 'fr'
+            language TEXT DEFAULT 'en'
         )
         `
     db.run(createTable, (err) => {
@@ -261,7 +261,6 @@ class User {
         `SELECT * FROM users WHERE username = ?`,
         [username],
         (err, user) => {
-          console.log(err, user);
           if (err) {
             console.log(
               `Error looking up user with username: ${username}`,
@@ -282,7 +281,6 @@ class User {
         `SELECT * FROM users WHERE username = ?`,
         [username],
         (err, user) => {
-          console.log(err, user);
           if (err) {
             console.log(
               `Error looking up user with username: ${username}`,
@@ -302,7 +300,6 @@ class User {
       `SELECT * FROM users WHERE username = ?`,
       [username],
       (err, user) => {
-        console.log(err, user);
         if (err) {
           callback(err, null);
         } else {

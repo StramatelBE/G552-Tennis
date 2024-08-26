@@ -31,6 +31,8 @@ class MacroController {
 
             // Récupérer les macros pour l'utilisateur spécifique et le bouton donné
 
+
+
             const macros = await this.macro.getByUserId(user.id)
             if (!macros.length) throw new Error("No macros found for this user");
 
@@ -67,9 +69,14 @@ class MacroController {
             return results;
         }
 
+<<<<<<< HEAD
 
         catch (error) {
             console.error(error.message);  // This will log the error message.
+=======
+        catch(error) {
+            // console.error(error.message);  // This will log the error message.
+>>>>>>> merging
             return 0;
         }
     }

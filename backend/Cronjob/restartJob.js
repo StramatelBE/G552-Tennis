@@ -4,7 +4,7 @@ const cron = require('node-cron');
 const exec = require('child_process').exec;
 const Veille = require('../Models/veilleModel'); // Ajustez le chemin selon votre structure de dossiers
 const { log } = require('console');
-
+const sharedEmitter = require('../Utils/SharedEmitter')
 const veille = new Veille();
 
 const restartJob = {
@@ -37,6 +37,12 @@ const restartJob = {
       }
     }).catch(error => {
       console.error('Error retrieving restart time:', error);
+    });
+
+    sharedEmitter.on('updateSchedule', (newTime) => {
+      console.log("receiving update in cron")
+      const [newHour, newMinute] = newTime.split(':').map(String);
+      this.scheduleReboot(newHour, newMinute);
     });
   }
 };

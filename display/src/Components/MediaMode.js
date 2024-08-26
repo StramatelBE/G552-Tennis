@@ -15,9 +15,11 @@ const MediaMode = ({mediaState, mediaMode}) => {
         }
 
         // Sort media by order
-        mediaState.sort((a, b) => a.order - b.order);
+        mediaState = mediaState.sort((a, b) => a.order - b.order);
 
-        // console.log("MediaMode mediaState", mediaState);
+        
+
+        console.log("MediaMode mediaState", mediaState);
 
         const currentMedia = mediaState[currentMediaIndex];
         const duration = (currentMedia && typeof currentMedia.duration === 'number') ? currentMedia.duration * 1000 : 5000; // Default to 5 seconds if not provided
