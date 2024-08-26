@@ -1,7 +1,7 @@
 const os = require('os');
 
 // Function to get the IP address of a specific interface
-function getIPAddress(interfaceName) {
+function getIpAddress(interfaceName) {
   console.log("getIPAddress called with interfaceName:", interfaceName);
   const networkInterfaces = os.networkInterfaces();
   const iface = networkInterfaces[interfaceName];
@@ -20,4 +20,4 @@ function getIPAddress(interfaceName) {
   return `No IPv4 address found for interface ${interfaceName}`;
 }
 
-module.exports = getIPAddress;
+module.exports = getIpAddress;

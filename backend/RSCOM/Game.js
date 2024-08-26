@@ -6,7 +6,7 @@ const nBytesToNumber = require('./Utils/nBytesToNumber');
 const AdminController = require("../Controllers/adminController");
 const adminController = new AdminController();
 
-const getIPAddress = require("./Utils/ipAddress");
+const getIpAddress = require("./Utils/ipAddress");
 
 class Game {
   static State = {
