@@ -251,7 +251,7 @@ class Game {
 
     // Update the radio channel if the frame is a radio channel frame
     if (toInsert.Code === 0x34) {
-      adminController.updateRadioChannel(toInsert.State.Channel);
+      adminController.updateRadioChannel(toInsert.Channel);
     }
 
     // Function to read the current storage state
