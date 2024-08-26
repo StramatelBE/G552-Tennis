@@ -12,8 +12,9 @@ function LanguageSelector() {
   );
 
   useEffect(() => {
-    setSelectedLanguage(i18n.language.split("-")[0]);
-  }, [i18n.language]);
+    console.log(user.language);
+    setSelectedLanguage(user.language);
+  }, []);
 
   const changeLanguage = (event) => {
     const selectedLanguage = event.target.value;

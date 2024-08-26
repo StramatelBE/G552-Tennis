@@ -296,7 +296,7 @@ function Profile() {
                         {t("Profile.languages")}
                       </Typography>
                     </Stack>
-                    <LanguageSelector />
+                    <LanguageSelector user/>
                   </Stack>
                 </Stack>
                 <Stack spacing={2}>
