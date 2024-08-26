@@ -25,6 +25,7 @@
     "account": "Account",
     "automaticStandby": "Automatische stand-by",
     "restartAt": "Herstarttijd",
+    "serverDate": "Serverdatum",
     "Dialog": {
       "chooseTime": "Kies tijd",
       "pleaseSelectMinutesAndSeconds": "Selecteer alstublieft minuten en seconden"

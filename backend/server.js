@@ -29,7 +29,7 @@ app.listen(config.portAPI, () => {
 const webSocketSetup = require("./Sockets/Websocket.js");
 webSocketSetup(app);
 const unixSocketSetup = require("./Sockets/Unixsocket.js");
-unixSocketSetup.startServer(); 
+/* unixSocketSetup.startServer();  */
 
 const { SerialPortConnection, sharedEmitter } = require("./RSCOM/SerialPorts/SerialPortConnection");
 const sp = new SerialPortConnection();
@@ -57,7 +57,7 @@ const userRoutes = require("./Routes/userRoutes");
 const spaceRoutes = require("./Routes/spaceRoutes");
 const modeRoutes = require("./Routes/modeRoutes");
 const dateRoutes = require("./Routes/dateRoutes");
-app.get('/dates', (req, res) => {
+app.get('/api/dates', (req, res) => {
     const serverDate = new Date();
     res.json({ date: serverDate });
   });

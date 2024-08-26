@@ -69,14 +69,8 @@ class MacroController {
             return results;
         }
 
-<<<<<<< HEAD
-
-        catch (error) {
-            console.error(error.message);  // This will log the error message.
-=======
         catch(error) {
             // console.error(error.message);  // This will log the error message.
->>>>>>> merging
             return 0;
         }
     }

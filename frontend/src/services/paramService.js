@@ -68,7 +68,21 @@ class ParamService {
       throw error;
     }
   }
+  async getDateServer(){
+  try {
+    const response = await fetchWithAuth(`${URL_API}/api/dates`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
+}
+
+
 
 const paramServiceInstance = new ParamService();
 

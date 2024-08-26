@@ -25,6 +25,7 @@
     "account": "Compte",
     "automaticStandby": "Mise en veille automatique",
     "restartAt": "Heure de redémarrage",
+    "serverDate": "Date du serveur",
     "Dialog": {
       "chooseTime": "Choisir le temps",
       "pleaseSelectMinutesAndSeconds": "Veuillez sélectionner les minutes et les secondes"

@@ -34,31 +34,15 @@ const handleScoring = async (scoring) => {
 
 
         const handleImmediateMode = (mode) => {
-<<<<<<< HEAD
-=======
             // console.log("immediate mode");
->>>>>>> merging
             unixSocketSetup.sendData(scoring);
             previousMacrosDataMode = mode;
         };
 
         const handleMacroMode = async (mode, gameState) => {
-<<<<<<< HEAD
             let macrosData = await macro.getMacrosByButton(mode, gameState.Sport);
             if (scoreMode.includes(macrosData)) {
 
-=======
-            // console.log("macro mode");
-
-            // console.log("Mode", mode);
-            // console.log("Sport", gameState.Sport);
-            let macrosData = await macro.getMacrosByButton(mode, gameState.Sport);
-            // console.log("MacrosData", macrosData);
-
-            //console.log("macrosData", macrosData)
-            if (scoreMode.includes(macrosData)) {
-                // console.log("No event for this macro, sending Mode", scoring.Mode);
->>>>>>> merging
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
             } else if (macrosData && macrosData[0]) {
@@ -67,10 +51,7 @@ const handleScoring = async (scoring) => {
                 previousMacrosDataMode = mode; // Update the cache
                 unixSocketSetup.sendMedia(macrosData[0]);
             } else {
-<<<<<<< HEAD
-=======
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
->>>>>>> merging
 
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
@@ -78,10 +59,7 @@ const handleScoring = async (scoring) => {
         };
 
         const handlePrematchMode = async (mode, gameState) => {
-<<<<<<< HEAD
-=======
             // console.log("macro mode");
->>>>>>> merging
             let macrosData = null;
 
             if (mode === 21) {
@@ -92,22 +70,14 @@ const handleScoring = async (scoring) => {
                     medias: macrosData[0].medias,
                     gameState: gameState
                 }
-<<<<<<< HEAD
-=======
+
                 // console.log("prematch");
->>>>>>> merging
-                unixSocketSetup.sendPrematchData(prematchData);
             } else {
-                macrosData = await macro.getMacrosByButton(mode, gameState.Sport);
             }
 
             if (scoreMode.includes(macrosData)) {
-<<<<<<< HEAD
-
-=======
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
->>>>>>> merging
                 scoring.Mode = scoreMode[0];
                 unixSocketSetup.sendData(scoring);
             } else if (macrosData && macrosData[0]) {
@@ -115,12 +85,8 @@ const handleScoring = async (scoring) => {
                 previousMacrosDataMode = mode; // Update the cache
                 unixSocketSetup.sendMedia(macrosData[0]);
             } else {
-<<<<<<< HEAD
-
-=======
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
                 // console.log("No event for this macro, sending Mode", scoring.Mode);
->>>>>>> merging
                 scoring.Mode = scoreMode;
                 unixSocketSetup.sendData(scoring);
             }
@@ -128,10 +94,7 @@ const handleScoring = async (scoring) => {
 
 
         if (scoreMode.includes(scoring.Mode)) {
-<<<<<<< HEAD
-=======
             // console.log("score mode");
->>>>>>> merging
             scoring.Language = getLanguage.language;
 
 

@@ -47,6 +47,7 @@ function Profile() {
   const [Widths, setWidths] = useState([]);
   const [sportsData, setSportsData] = useState([]);
   const timeoutRef = useRef(null);
+  const [serverDate, setServerDate] = useState(null);
 
   const predefinedColors = [
     "#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FF8C33", "#8C33FF", "#33FFF5", "#FFD700", // Couleurs précédentes
@@ -56,6 +57,14 @@ function Profile() {
   ];
 
   useEffect(() => {
+    paramService.getDateServer().then((data) => {
+      console.log("data", data);
+      const serverDate = new Date(data.date); // Convertir en objet Date
+      const hours = serverDate.getHours().toString().padStart(2, '0');
+      const minutes = serverDate.getMinutes().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}`; // Formater l'heure sans les secondes
+      setServerDate(timeString); // Mettre à jour l'état avec l'heure
+    });
     modeServiceInstance.getMode().then((data) => {
       setMode(data.mode);
     });
@@ -365,6 +374,11 @@ function Profile() {
                       onChange={handleVeilleChange}
                     />
                   </Stack> */}
+                  {serverDate && (
+                    <Typography variant="body2" >
+                      {t("Profile.serverDate")} : {serverDate}
+                    </Typography>
+                  )}
                   <Stack
                     direction="row"
                     justifyContent="space-between"
@@ -372,6 +386,7 @@ function Profile() {
                     spacing={3}
                     onClick={handleVeilleChange}
                   >
+                    
                     <Stack spacing={3} direction="row" alignItems="center">
                       <IconButton disabled>
                         <ModeNightIcon sx={{ color: "text.secondary" }} />
@@ -380,29 +395,6 @@ function Profile() {
                     </Stack>
 
                     <TextField
-<<<<<<< HEAD
-                      type="time"
-                      value={veille.restart_at}
-                      onChange={(e) => {
-                        const updatedVeille = {
-                          ...veille,
-                          restart_at: e.target.value,
-                        };
-                        setVeille(updatedVeille);
-
-                        // Définir un délai avant d'envoyer la mise à jour
-                        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-                        timeoutRef.current = setTimeout(() => {
-                          updatedVeille01(updatedVeille);
-                        }, 1000); // Attendre 1 seconde après la dernière entrée
-                      }}
-                      required
-                      margin="normal"
-                      inputProps={{
-                        step: 300, // Pas de 5 minutes pour la sélection de l'heure
-                      }}
-                    />
-=======
                     type="time"
                     value={veille.restart_at}
                     onChange={(e) => {
@@ -425,8 +417,8 @@ function Profile() {
       }}
     />
     
->>>>>>> merging
                   </Stack>
+                  
                   {/*  <Stack>
                     <Slider
                       m={5}
