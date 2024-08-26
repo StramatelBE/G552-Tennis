@@ -38,6 +38,7 @@ const Frame_0x52 = require('./Frame_0x52'); // FreeSport
 
 // 0x9x frames
 // Utilitary frames
+const Frame_0x34 = require('./Frame_0x34'); // Radio Channel Settings
 const Frame_0x90 = require('./Frame_0x90'); // TeamNames
 const Frame_0x91 = require('./Frame_0x91'); // Clear TeamNames
 const Frame_0x92 = require('./Frame_0x92'); // Full Clear
@@ -77,6 +78,7 @@ module.exports = Frames = {
     FreeSport: Frame_0x52, // FreeSport
 
     // 0x9x frames
+    RadioChannel: Frame_0x34, // Radio Channel Settings
     TeamNames: Frame_0x90, // TeamNames
     ClearTeamNames: Frame_0x91, // Clear TeamNames
     FullClear: Frame_0x92, // Full Clear

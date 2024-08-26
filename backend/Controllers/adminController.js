@@ -47,6 +47,18 @@ class AdminController {
       });
   };
 
+  
+  updateRadioChannel = (canalValue) => {
+    return this.admin
+      .updateCanal(canalValue)
+      .then(() => {
+        console.log(`Canal updated successfully to ${canalValue}`);
+      })
+      .catch((err) => {
+        console.error(`Error updating canal: ${err}`);
+      });
+  }; 
+
   get = (req, res) => {
     this.admin
       .getAdmin()

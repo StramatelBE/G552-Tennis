@@ -3,8 +3,12 @@ const { sharedEmitter } = require("./SerialPorts/SerialPortConnection");
 const fs = require('fs');
 const nBytesToNumber = require('./Utils/nBytesToNumber');
 
+const AdminController = require("../Controllers/adminController");
+const adminController = new AdminController();
+
 class Game {
   static State = {
+    Channel: '',
     Code: '',
     Language: '',
     Mode: '',
@@ -120,7 +124,6 @@ class Game {
 
     switch (_message[1]) {
 
-<<<<<<< HEAD
       case 0x10:
         toInsert = Frames.Volleyball.build(_message);
         console.log("Volleyball Frame");
@@ -191,6 +194,10 @@ class Game {
         toInsert = Frames.FreeSport.build(_message);
         console.log("FreeSport Frame");
         break;
+      case 0x34:
+        toInsert = Frames.RadioChannel.build(_message);
+        console.log("RadioChannel Frame");
+        break;
       case 0x90:
         toInsert = Frames.TeamNames.build(_message);
         console.log("TeamNames Frame");
@@ -219,106 +226,6 @@ class Game {
         console.log("Unknown Frame: " + _message[1]);
         console.log(_message);
         break;
-=======
-        case 0x10:
-            toInsert = Frames.Volleyball.build(_message);
-            // console.log("Volleyball Frame");
-            break;
-        case 0x20:
-            toInsert = Frames.Handball.build(_message);
-            // console.log("Handball Frame");
-            break;
-        case 0x21:
-            toInsert = Frames.Floorball.build(_message);
-            // console.log("Floorball Frame");
-            break;
-        case 0x22:
-            toInsert = Frames.IceHockey.build(_message);
-            // console.log("IceHockey Frame");
-            break;
-        case 0x23:
-            toInsert = Frames.RinkHockey.build(_message);
-            // console.log("RinkHockey Frame");
-            break;
-        case 0x24:
-            toInsert = Frames.RollerInlineHockey.build(_message);
-            // console.log("RollerInlineHockey Frame");
-            break;
-        case 0x25:
-            toInsert = Frames.Futsal.build(_message);
-            // console.log("Futsal Frame");
-            break;
-        case 0x26:
-            toInsert = Frames.Netball.build(_message);
-            // console.log("Netball Frame");
-            break;
-        case 0x27:
-            toInsert = Frames.Boxe.build(_message);
-            // console.log("Boxe Frame");
-            break;
-        case 0x30:
-            toInsert = Frames.Basketball.build(_message);
-            // console.log("Basketball Frame");
-            break;
-        case 0x31:
-            toInsert = Frames._0x37.build(_message);
-            break;
-        case 0x32:
-            toInsert = Frames._0x38.build(_message);
-            break;
-        case 0x40:
-            toInsert = Frames.Tennis.build(_message);
-            // console.log("Tennis Frame");
-            break;
-        case 0x41:
-            toInsert = Frames.Badminton.build(_message);
-            // console.log("Badminton Frame");
-            break;
-        case 0x42:
-            toInsert = Frames.TableTennis.build(_message);
-            // console.log("TableTennis Frame");
-            break;
-        case 0x50:
-            toInsert = Frames.Chrono.build(_message);
-            // console.log("Chrono Frame");
-            break;
-        case 0x51:
-            toInsert = Frames.Training.build(_message);
-            // console.log("Training Frame");
-            break;
-        case 0x52:
-            toInsert = Frames.FreeSport.build(_message);
-            // console.log("FreeSport Frame");
-            break;
-        case 0x90:
-            toInsert = Frames.TeamNames.build(_message);
-            // console.log("TeamNames Frame");
-            break;
-        case 0x91:
-            toInsert = Frames.ClearTeamNames.build(_message);
-            // console.log("ClearTeamNames Frame");
-            break;
-        case 0x92:
-            toInsert = Frames.FullClear.build(_message);
-            // console.log("FullClear Frame");
-            break;
-        case 0x93:
-            toInsert = Frames.Test.build(_message);
-            // console.log("Test Frame");
-            break;
-        case 0x94:
-            toInsert = Frames.QR.build(_message);
-            // console.log("QRCode Frame");
-            break;
-        case 0x99:
-            toInsert = Frames.ClockSetup.build(_message);
-            // console.log("ClockSetup Frame");
-            break;
-        default:
-            console.log("Unknown Frame: " + _message[1]);
-            console.log(_message);
-            break;
->>>>>>> merging
     }
 
     if (toInsert != null) {
@@ -328,6 +235,8 @@ class Game {
 
       // console.log(nBytesToNumber(_message[1]) + " Frame");
       this.updateState(toInsert);
+      
+     
 
     }
     this.Send();
@@ -339,6 +248,11 @@ class Game {
 
   static updateState(toInsert) {
     const storagePath = './storage.json';
+
+    // Update the radio channel if the frame is a radio channel frame
+    if (toInsert.Code === 0x34) {
+      adminController.updateRadioChannel(toInsert.State.Channel);
+    }
 
     // Function to read the current storage state
     const readStorage = () => {
