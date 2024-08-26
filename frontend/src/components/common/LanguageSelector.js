@@ -8,13 +8,13 @@ function LanguageSelector() {
   const { user } = useAuthStore();
   const { i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(
-    i18n.language.split("-")[0]
+    user.language
   );
 
   useEffect(() => {
-    console.log(user.language);
+    console.log("sata",user.language);
     setSelectedLanguage(user.language);
-  }, []);
+  }, [user.language]);
 
   const changeLanguage = (event) => {
     const selectedLanguage = event.target.value;
