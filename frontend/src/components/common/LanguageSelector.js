@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import useAuthStore from "../../stores/authStore";
 
 function LanguageSelector() {
-  const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const { i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(
     user.language
@@ -22,7 +22,7 @@ function LanguageSelector() {
     i18n.changeLanguage(selectedLanguage);
     localStorage.setItem("i18nextLng", selectedLanguage);
     try {
-
+      setUser({...user, language: selectedLanguage});
       authService.updateLanguage(selectedLanguage, user.id);
     }
     catch (error) {
