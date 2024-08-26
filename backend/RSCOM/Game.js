@@ -257,7 +257,7 @@ class Game {
       toInsert.IP = getIpAddress('end0')
       adminController.updateRadioChannel(toInsert.Channel);
       console.log("Radio Channel: " + toInsert.Channel);
-      adminController.updateIPAddress(toInsert.IP);
+      adminController.updateIpAddress(toInsert.IP);
       console.log("IP Address: " + toInsert.IP);
     }
 
