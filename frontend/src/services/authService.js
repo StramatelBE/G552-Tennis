@@ -119,6 +119,17 @@ class AuthService {
       console.error("Error during firstLogin:", error);
     }
   }
+  async getUser(id) {
+    try {
+      const response = await fetchWithAuth(`${URL_API}/users/${id}`, {
+        method: "GET",
+      });
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error during user retrieval:", error);
+    }
+  }
 
   async updateLanguage(language, id) {
     try {
