@@ -13,7 +13,7 @@ module.exports =  class Frame_0x34 {
     
         return {
             insertType: 'DirectConsoleData',
-            Channel: nBytesToNumber(_message[4])
+            Channel: nBytesToNumber(_message[4] == 0x20 ? _message[8] : _message[4])
         };
     }
 }

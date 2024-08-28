@@ -18,7 +18,7 @@ module.exports = class Frame_0x27 {
             Mode: nBytesToNumber(_message[2]),
             insertType: 'DirectConsoleData',
             Sport: eSport.Boxe,
-            Display: eSport.Handball,
+            Display: eSport.Standard,
 
             Timer: {
                 Value: Tools.Chrono(_message[4], _message[5], _message[6], _message[7]),

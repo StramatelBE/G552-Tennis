@@ -1,4 +1,4 @@
-// utils/eventEmitter.js
+// Utils/Shared/Emitter.js
 const EventEmitter = require('events');
 class SharedEmitter extends EventEmitter {}
 

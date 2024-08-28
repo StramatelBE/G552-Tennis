@@ -4,6 +4,7 @@ import Basketball from "./Sports/Basketball/Basketball"
 import Handball from "./Sports/Handball/Handball"
 import Tennis from "./Sports/Tennis/Tennis"
 import Volleyball from "./Sports/Volleyball/Volleyball"
+import Standard from "./Sports/Standard/Standard"
 import i18next from "i18next";
 
 //TODO: DISPLAY TIMEOUT COUNTDOWN WHEN TIMEOUT IS CALLED
@@ -13,6 +14,7 @@ const SPORT_COMPONENT_MAP = {
   Handball: Handball,
   Tennis: Tennis,
   Volleyball: Volleyball,
+  Standard: Standard
 
 };
 

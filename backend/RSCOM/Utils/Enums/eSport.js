@@ -14,7 +14,8 @@ const eSport = {
     Netball: "Netball",
     Chrono: "Chrono",
     Training: "Training",
-    FreeSport: "Freesport"
+    FreeSport: "Freesport",
+    Standard: "Standard"
 }
 
 module.exports = eSport;

@@ -10,6 +10,7 @@ const MacroController = require("./Controllers/macroController");
 const handleScoring = require("./RSCOM/scoringHandler");
 const cronJobs = require('./Cronjob/Cron_index');
 const QRCode = require('qrcode');
+const moment = require('moment');
 
 const User = require('./Models/userModel');
 require("dotenv").config();
@@ -50,6 +51,28 @@ sharedEmitter.on("scoring", handleScoring);
 sharedEmitter.on("media", (media) => {
     unixSocketSetup.sendMedia(media);
 });
+
+
+
+let today = moment().format("YYYY-MM-DD");
+
+
+let todayMoment = moment(today, "YYYY-MM-DD");
+let targetDateMoment = moment(/*par ex*/"2024-08-27" /* <== La valeur de last updated */, "YYYY-MM-DD");
+
+
+
+// Calculate the difference in days
+let result = targetDateMoment.diff(todayMoment, 'days');
+
+if (result > 0) {
+    // Opération d'incrément 
+    // Enregistrement dans base de données
+    // Mise à jour de last updated
+}
+
+console.log(result);
+
 
 const authRoutes = require("./Routes/authRoutes");
 const activeSessionsRoutes = require("./Routes/activeSessionsRoutes");
