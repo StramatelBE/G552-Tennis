@@ -147,6 +147,12 @@ function Handball({ gameState: incomingGameState }) {
         <div className="text team-name-sport" style={{ fontSize: homeFontSize, left: "0px", top: "90px" }} >
           {gameState?.Home?.TeamName !== undefined ? gameState?.Home?.TeamName : "HOME"}
         </div>
+        {
+          gameState?.Sport !== "Futsal" &&
+            (<div className="text fouls-basket" style={{ right: "70px", top: "210px" }}>
+              {gameState?.Guest?.Fouls?.Team}
+            </div>)
+        }
         {gameState?.Home?.Exclusion?.Timer?.map((timer, index) => {
           if (timer > 0) {
             return (
@@ -184,6 +190,12 @@ function Handball({ gameState: incomingGameState }) {
         <div className="text team-name-sport" style={{ fontSize: guestFontSize, left: "0px", top: "90px" }} >
           {gameState?.Guest?.TeamName !== undefined ? gameState?.Guest?.TeamName : "GUEST"}
         </div>
+        {
+         gameState?.Sport !== "Futsal" &&
+            (<div className="text fouls-basket" style={{ right: "70px", top: "210px" }}>
+              {gameState?.Guest?.Fouls?.Team}
+            </div>)
+        }
         {gameState?.Guest?.Exclusion?.Timer?.map((timer, index) => {
           if (timer > 0) {
             return (
