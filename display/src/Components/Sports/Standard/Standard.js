@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import "./StandardDisplay.css";
+import "./Standard.css";
 import "../globalSport.css";
 
-function Handball({ gameState: incomingGameState }) {
+function Standard({ gameState: incomingGameState }) {
   const [homeScore, setHomeScore] = useState(incomingGameState?.Home?.Points || 0);
   const [guestScore, setGuestScore] = useState(incomingGameState?.Guest?.Points || 0);
 
@@ -228,4 +228,4 @@ function Handball({ gameState: incomingGameState }) {
     </div >
   );
 };
-export default Handball;
+export default Standard;
