@@ -96,5 +96,25 @@
     "Dialog": {
       "password": "Mot de passe"
     }
+  },
+  "Sport": {
+    "Basketball": "Basketball",
+    "Handball": "Handball",
+    "Volleyball": "Volleyball",
+    "Tennis": "Tennis",
+    "TableTennis": "Tennis de table",
+    "Badminton": "Badminton",
+    "Futsal": "Futsal",
+    "Boxe": "Boxe",
+    "Hockey": "Hockey",
+    "RinkHockey": "Hockey sur patins",
+    "Floorball": "Floorball",
+    "IceHockey": "Hockey sur glace",
+    "Netball": "Netball",
+    "Chrono": "Chrono",
+    "Training": "Entraînement",
+    "FreeSport": "Sport libre",
+    "Standard": "Standard",
+    "Other": "Autre"
   }
 }

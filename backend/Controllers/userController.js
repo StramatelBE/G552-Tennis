@@ -16,11 +16,10 @@ class UserController {
 
 
   updateLanguage  = (req, res) => {
-    console.log("updateLanguage", req.body);
     this.user
       .updateLanguage(req.body, req.params.id)
-      .then((user) => {
-        res.status(200).json(user);
+      .then(() => {
+        res.status(200).json({ message: "Language updated" });
       })
       .catch((err) => {
         res.status(500).json({ message: err });
@@ -101,6 +100,7 @@ class UserController {
     this.user
       .updateFirstLogin(req.params.id)
       .then((user) => {
+
         res.status(200).json(user);
       })
       .catch((err) => {

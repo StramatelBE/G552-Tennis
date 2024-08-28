@@ -96,5 +96,25 @@
     "Dialog": {
       "password": "Wachtwoord"
     }
+  },
+  "Sport": {
+    "Basketball": "Basketbal",
+    "Handball": "Handbal",
+    "Volleyball": "Volleybal",
+    "Tennis": "Tennis",
+    "TableTennis": "Tafeltennis",
+    "Badminton": "Badminton",
+    "Futsal": "Zaalvoetbal",
+    "Boxe": "Boksen",
+    "Hockey": "Hockey",
+    "RinkHockey": "Rinkhockey",
+    "Floorball": "Floorball",
+    "IceHockey": "IJshockey",
+    "Netball": "Netbal",
+    "Chrono": "Chrono",
+    "Training": "Training",
+    "FreeSport": "Vrije sport",
+    "Standard": "Standaard",
+    "Other": "Andere"
   }
 }

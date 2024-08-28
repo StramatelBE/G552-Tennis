@@ -176,9 +176,9 @@ class User {
         [language.language, id],
         (err) => {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
+            resolve();
           }
         }
       );

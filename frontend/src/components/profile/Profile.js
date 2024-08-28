@@ -58,7 +58,6 @@ function Profile() {
 
   useEffect(() => {
     paramService.getDateServer().then((data) => {
-      console.log("data", data);
       const serverDate = new Date(data.date); // Convertir en objet Date
       const hours = serverDate.getHours().toString().padStart(2, '0');
       const minutes = serverDate.getMinutes().toString().padStart(2, '0');
@@ -476,7 +475,7 @@ function Profile() {
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', mr: 1, mb: 1 }}>
                   <Box sx={{ width: 10, height: 10, bgcolor: sport.color }} />
                   <Typography variant="body2" sx={{ ml: 1 }}>
-                    {sport.name}
+                    ({t(sport.name)})
                   </Typography>
                 </Box>
               ))}

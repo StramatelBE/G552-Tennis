@@ -132,6 +132,7 @@ class AuthService {
   }
 
   async updateLanguage(language, id) {
+    
     try {
       const response = await fetchWithAuth(`${URL_API}/users/updateLanguage/${id}`, {
         method: "PUT",

@@ -12,7 +12,6 @@ function LanguageSelector() {
   );
 
   useEffect(() => {
-    console.log("sata",user.language);
     setSelectedLanguage(user.language);
   }, [user.language]);
 
