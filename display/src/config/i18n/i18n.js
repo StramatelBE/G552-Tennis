@@ -7,12 +7,13 @@ import translationFR from "./fr.json";
 import translationPL from "./pl.json";
 import translationDE from "./de.json";
 import translationES from "./es.json";
+import translationNL from "./nl.json";
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "fr", // Langue par défaut si la détection échoue
+    fallbackLng: "en", // Langue par défaut si la détection échoue
     resources: {
       en: {
         translation: translationEN,
