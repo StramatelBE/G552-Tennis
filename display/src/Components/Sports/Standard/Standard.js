@@ -148,9 +148,9 @@ function Standard({ gameState: incomingGameState }) {
           {gameState?.Home?.TeamName !== undefined ? gameState?.Home?.TeamName : "HOME"}
         </div>
         {
-          gameState?.Sport !== "Futsal" &&
-            (<div className="text fouls-basket" style={{ right: "70px", top: "210px" }}>
-              {gameState?.Guest?.Fouls?.Team}
+          gameState?.Sport === "Futsal" &&
+            (<div className="text fouls-basket" style={{ left: "70px", top: "210px" }}>
+              {gameState?.Home?.Fouls?.Team}
             </div>)
         }
         {gameState?.Home?.Exclusion?.Timer?.map((timer, index) => {
@@ -191,7 +191,7 @@ function Standard({ gameState: incomingGameState }) {
           {gameState?.Guest?.TeamName !== undefined ? gameState?.Guest?.TeamName : "GUEST"}
         </div>
         {
-         gameState?.Sport !== "Futsal" &&
+         gameState?.Sport === "Futsal" &&
             (<div className="text fouls-basket" style={{ right: "70px", top: "210px" }}>
               {gameState?.Guest?.Fouls?.Team}
             </div>)
