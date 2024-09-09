@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+import DateRangeIcon from '@mui/icons-material/DateRange';
 import BugReportIcon from "@mui/icons-material/BugReport";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -169,6 +170,15 @@ function Profile() {
     return isNaN(percentage) ? 0 : percentage;
   };
 
+  
+    const updateDate = () => {
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString();
+        const formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const dateTimeString = `${formattedDate} ${formattedTime}`;
+        paramService.updateDate(dateTimeString).then((response) => { });
+    };
+
 
 
 
@@ -222,6 +232,26 @@ function Profile() {
                       }}
                     >
                       {t("Profile.changePassword")}
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    onClick={updateDate}
+                    direction="row"
+                    alignItems="center"
+                    spacing={3}
+                  >
+                    <IconButton disabled>
+                      <DateRangeIcon sx={{ color: "text.secondary" }} />
+                    </IconButton>
+                    <Typography
+                      variant="h8"
+                      sx={{
+                        color: "text.primary",
+                        textTransform: "none",
+                        padding: "0",
+                      }}
+                    >
+                      {t("Profile.updateDate")}
                     </Typography>
                   </Stack>
                   <Stack

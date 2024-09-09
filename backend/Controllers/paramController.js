@@ -57,6 +57,17 @@ class ParamController {
         res.status(500).json({ message: err });
       });
   }
+
+  updateDate = (req, res) => {
+    const { date } = req.body;
+    this.param.updateDate(date)
+      .then(() => {
+        res.status(200).json({ message: 'Date updated successfully' });
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err });
+      });
+  }
 }
 
 module.exports = ParamController;

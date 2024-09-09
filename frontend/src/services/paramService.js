@@ -80,6 +80,21 @@ class ParamService {
     throw error;
   }
 }
+async updateDate(date) {
+  try {
+    const response = await fetchWithAuth(`${URL_API}/params/updateDate`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ date }),
+    });
+  }
+  catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 }
 
 

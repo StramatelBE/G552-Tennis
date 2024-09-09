@@ -126,6 +126,33 @@ class Param {
       );
     });
   }
+    updateDate(date) {
+      console.log("updateDate", date);
+      // Vérification du format de la date
+      const dateRegex = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/;
+      const match = date.match(dateRegex);
+      
+      if (match) {
+        const [, day, month, year, hours, minutes] = match;
+        const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+        console.log("Date formatée pour la commande:", formattedDate);
+      } else {
+        console.error("Format de date invalide. Utilisez DD/MM/YYYY HH:MM");
+        return Promise.reject("Format de date invalide");
+      }
+    return new Promise((resolve, reject) => {
+      const exec = require('child_process').exec;
+      const command = `sudo date -s "${formattedDate}"`; // Utilisation de formattedDate
+
+      exec(command, (err, stdout, stderr) => {
+        if (err) {
+          reject(stderr);
+        } else {
+          resolve(stdout);
+        }
+      });
+    });
+  }
 }
 
 module.exports = Param;

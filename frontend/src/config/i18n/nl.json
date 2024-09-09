@@ -26,6 +26,7 @@
     "automaticStandby": "Automatische stand-by",
     "restartAt": "Herstarttijd",
     "serverDate": "Serverdatum",
+    "updateDate": "Datum bijwerken",
     "Dialog": {
       "chooseTime": "Kies tijd",
       "pleaseSelectMinutesAndSeconds": "Selecteer alstublieft minuten en seconden"

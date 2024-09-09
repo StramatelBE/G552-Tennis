@@ -14,7 +14,7 @@ async function fetchWithAuth(url, options = {}) {
   try {
     const response = await fetch(url, { ...options, headers });
 
-    if (!response.ok && response.status === 401) {
+    if (!response.ok && response.status === 401 ) {
       console.log("error 401");
       console.log("user", useAuthStore.getState().user);
       useAuthStore.setState({ user: null, token: null });

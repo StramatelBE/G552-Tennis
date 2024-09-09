@@ -27,11 +27,11 @@ app.listen(config.portAPI, () => {
     console.log(`API Server started on ${config.ip}:${config.portAPI}`);
 });
 
-const webSocketSetup = require("./Sockets/Websocket.js");
+/* const webSocketSetup = require("./Sockets/Websocket.js");
 webSocketSetup(app);
 const unixSocketSetup = require("./Sockets/Unixsocket.js");
 unixSocketSetup.startServer();
-
+ */
 const { SerialPortConnection, sharedEmitter } = require("./RSCOM/SerialPorts/SerialPortConnection");
 const sp = new SerialPortConnection();
 
