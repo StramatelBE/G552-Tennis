@@ -1,46 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import LoginIcon from "@mui/icons-material/Login";
 import {
   Box,
   Button,
+  FormControl,
   Grid,
   IconButton,
   Paper,
-  Select,
   TextField,
-  Typography,
-  MenuItem,
-  InputLabel,
-  FormControl,
+  Typography
 } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
-import UserConnectedDialog from "../dialogs/UserConnectedDialog";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ActiveSessionsService from "../../services/activeSessionsService";
 import authService from "../../services/authService";
-import userService from "../../services/userService";
 import LostPasswordDialog from "../dialogs/LostPasswordDialog";
+import UserConnectedDialog from "../dialogs/UserConnectedDialog";
 
 function Login() {
-  const [users, setUsers] = useState("");
-  const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [openUserConnectedDialog, setOpenUserConnectedDialog] = useState(false);
   const { t } = useTranslation();
   const [openChangePassword, setOpenChangePassword] = useState(false);
 
-  useEffect(() => {
-    getUsers();
-  }, []);
 
-  async function getUsers() {
-    const result = await userService.getAll();
-    if (result) {
-      // Sort users in alphabetical order by their name
-      const sortedUsers = result.sort((a, b) => a.username.localeCompare(b.username));
-      setUsers(sortedUsers);
-    }
-  }
+
+  /*   async function getUsers() {
+      const result = await userService.getAll();
+      if (result) {
+        // Sort users in alphabetical order by their name
+        const sortedUsers = result.sort((a, b) => a.username.localeCompare(b.username));
+        setUsers(sortedUsers);
+      }
+    } */
 
   function deleteUserConected() {
     ActiveSessionsService.deleteCurrentUser();
@@ -63,7 +55,7 @@ function Login() {
   async function handleSubmit(e) {
     if (e) e.preventDefault();
     try {
-      const response = await authService.login(user, password);
+      const response = await authService.login("Tennis", password);
       if (response.status === 401) {
         // Throw an error manually to get inside the catch block
         throw new Error("error mot de passe");
@@ -100,7 +92,7 @@ function Login() {
         <Box className="centeredContainer">
           <form onSubmit={handleSubmit}>
             <FormControl sx={{ width: "35vh" }}>
-              <InputLabel>{t("Login.username")}</InputLabel>
+              {/* <InputLabel>{t("Login.username")}</InputLabel>
               <Select
                 labelId="user-select-label"
                 label={t("Login.username")}
@@ -114,7 +106,7 @@ function Login() {
                       {userOption.username}
                     </MenuItem>
                   ))}
-              </Select>
+              </Select> */}
               <TextField
                 label={t("Login.password")}
                 type="password"
@@ -157,7 +149,7 @@ function Login() {
       <LostPasswordDialog
         open={openChangePassword}
         onClose={() => setOpenChangePassword(false)}
-        users={users}
+        users={"Tennis"}
       />
       <UserConnectedDialog
         open={openUserConnectedDialog}

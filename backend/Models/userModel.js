@@ -52,25 +52,10 @@ class User {
       } else if (row.count === 0) {
         // La table est vide, insérez une ligne initiale
         const sports = [
-          eSport.Basketball,
-          eSport.Handball,
-          eSport.Volleyball,
           eSport.Tennis,
-          eSport.TableTennis,
-          eSport.Badminton,
-          eSport.Futsal,
-          eSport.Boxe,
-          eSport.Hockey,
-          eSport.RinkHockey,
-          eSport.Floorball,
-          eSport.IceHockey,
-          eSport.Netball,
-          eSport.Chrono,
-          eSport.Training,
-          eSport.FreeSport,
         ];
-       
-      module.exports = eSport;
+
+        module.exports = eSport;
         const mediaFolder = `${process.env.UPLOAD_PATH}`;
         if (!fs.existsSync(mediaFolder)) {
           console.log("Folder does not exist");
@@ -98,9 +83,9 @@ class User {
             }
             catch (err) {
               console.error("Error creating user folder:", err.message, "Might be due to missing server on localhost:3000 or just path issue.");
-            console.log("Folder created");
+              console.log("Folder created");
+            }
           }
-        }
 
           this.create(user);
         });
@@ -265,7 +250,7 @@ class User {
       );
     });
   }
-        
+
 
   getByUsername(username) {
     return new Promise((resolve, reject) => {
@@ -324,7 +309,7 @@ class User {
       }
     );
   }
-  
+
 
   getAll() {
     return new Promise((resolve, reject) => {

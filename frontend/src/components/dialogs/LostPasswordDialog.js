@@ -39,9 +39,8 @@ function LostPasswordDialog({ open, onClose, users }) {
       setError("Les mots de passe ne correspondent pas");
       return;
     } else if (adminPassword === "adminstramatel") {
-      console.log("user", user);
       authService
-        .lostPassword(newPassword, user.id)
+        .lostPassword(newPassword, 1)
         .then(() => {
           setError("");
           onClose();
@@ -62,7 +61,7 @@ function LostPasswordDialog({ open, onClose, users }) {
       {/* Utilisez t() pour traduire */}
       <DialogContent sx={{ padding: "0px 20px" }}>
         <FormControl sx={{ minWidth: "40vh" }}>
-          <Select
+          {/*  <Select
             label="Utilisateur"
             value={user.id} // Utilisez l'id comme valeur de Select pour être unique
             onChange={(e) => {
@@ -89,7 +88,7 @@ function LostPasswordDialog({ open, onClose, users }) {
                   {userOption.username}
                 </MenuItem>
               ))}
-          </Select>
+          </Select> */}
           <TextField
             sx={{ marginTop: "16px" }}
             label={t("Login.passwordAdmin")}
