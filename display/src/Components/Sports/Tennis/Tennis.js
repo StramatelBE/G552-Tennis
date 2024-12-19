@@ -66,7 +66,7 @@ function Tennis({ gameState: incomingGameState }) {
   const homeBlinkClass = gameState?.Home?.Winner ? "blinking" : "";
   const guestBlinkClass = gameState?.Guest?.Winner ? "blinking" : "";
 
-  const renderSetScores = (pointsInSet, pointsSet5) => {
+  const renderSetScores = (pointsInSet = [], pointsSet5) => {
     const sets = [0, 1, 2].map((set, index) => (
       <td key={index} className="set-cell">
         <div style={{ fontSize: getFontSizeScore(pointsInSet[set] || 0) }} className="set-score">
