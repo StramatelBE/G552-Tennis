@@ -1,5 +1,8 @@
 zip/
 build/
 display/build
+display/dist
 frontend/build
 backend/build
+
+.idea
