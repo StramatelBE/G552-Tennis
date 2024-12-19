@@ -2,10 +2,32 @@ import React, { useEffect } from "react";
 import "./Tennis.css";
 
 function Tennis({ gameState: incomingGameState }) {
-  const gameState = incomingGameState || {};
+  const gameState = incomingGameState || {
+    "Sport": "Tennis",
+    "Timer": {
+      "Value": "00:00"
+    },
+    "Set": 4,
+    "Home": {
+      "TeamName": "Joueur 1",
+      "Points": 12,
+      "Service": 1,
+      "Winner": false,
+      "SetsWon": 2,
+      "PointsInSet": [6, 4, 7, 2],
+    },
+    "Guest": {
+      "TeamName": "Joueur 2",
+      "Points": 0,
+      "Service": 0,
+      "Winner": false,
+      "SetsWon": 1,
+      "PointsInSet": [4, 6, 6, 0],
+    }
+  };
 
-  const [homeFontSize, setHomeFontSize] = React.useState("30px");
-  const [guestFontSize, setGuestFontSize] = React.useState("30px");
+  const [homeFontSize, setHomeFontSize] = React.useState("40px");
+  const [guestFontSize, setGuestFontSize] = React.useState("40px");
   const [currentSet, setCurrentSet] = React.useState(1);
   const [homePointsSet5, setHomePointsSet5] = React.useState(0);
   const [guestPointsSet5, setGuestPointsSet5] = React.useState(0);
@@ -48,9 +70,9 @@ function Tennis({ gameState: incomingGameState }) {
 
   function getFontSize(name) {
     if (name.length <= 7) {
-      return "30px"; // Taille normale
+      return "40px"; // Taille normale
     } else if (name.length <= 9) {
-      return "26px"; // Toujours un peu plus petit
+      return "35px"; // Toujours un peu plus petit
     }
   }
 
@@ -59,147 +81,88 @@ function Tennis({ gameState: incomingGameState }) {
   }
 
   // Determine the color of the service dot for Home and Guest
-  const homeServiceDotColor = gameState?.Home?.Service === 1 ? "red" : "#005239";
-  const guestServiceDotColor = gameState?.Guest?.Service === 1 ? "red" : "#005239";
+  const homeServiceDotColor = gameState?.Home?.Service === 1 ? 1 : 0;
+  const guestServiceDotColor = gameState?.Guest?.Service === 1 ? 1 : 0;
 
   // Conditionally apply blinking class
   const homeBlinkClass = gameState?.Home?.Winner ? "blinking" : "";
   const guestBlinkClass = gameState?.Guest?.Winner ? "blinking" : "";
 
-  const renderSetScores = (pointsInSet = [], pointsSet5) => {
-    const sets = [0, 1, 2].map((set, index) => (
-      <td key={index} className="set-cell">
-        <div style={{ fontSize: getFontSizeScore(pointsInSet[set] || 0) }} className="set-score">
-          {pointsInSet[set] !== undefined ? pointsInSet[set] : "0"}
-        </div>
-      </td>
-    ));
-    if (currentSet > 4 || (currentSet === 4 && (gameState?.Home?.Winner || gameState?.Guest?.Winner))) {
-      sets.push(
-        <td key={3} className="set-cell">
-          <div style={{ fontSize: getFontSizeScore(pointsInSet[3] || 0) }} className="set-score">
-            {pointsInSet[3] !== undefined ? pointsInSet[3] : "0"}
-          </div>
-        </td>
-      );
-    }
-    if (currentSet === 5 && (gameState?.Home?.Winner || gameState?.Guest?.Winner)) {
-      sets.push(
-        <td key={4} className="set-cell">
-          <div style={{ fontSize: getFontSizeScore(pointsSet5) }} className="set-score">
-            {pointsSet5}
-          </div>
-        </td>
-      );
-    }
-    return sets;
-  };
+const renderSetScores = () => {
+  return (
+    <>
+      {gameState?.Set > 3 ? (
+        <>
+        <td>
+          <div className="set-score">{gameState.Home.SetsWon || "0"}</div>
+          <div className="middle middle-text"> SETS </div>
+          <div className="set-score">{gameState.Guest.SetsWon || "0"}</div>
 
-  const renderSetHeaders = () => {
-    const headers = ["S1", "S2", "S3"].map((set, index) => (
-      <td key={index} className="set-cell">
-        <div className="set-text">{set}</div>
-      </td>
-    ));
-    if (currentSet > 4 || (currentSet === 4 && (gameState?.Home?.Winner || gameState?.Guest?.Winner))) {
-      headers.push(
-        <td key={3} className="set-cell">
-          <div className="set-text">S4</div>
         </td>
-      );
-    }
-    if (currentSet === 5 && (gameState?.Home?.Winner || gameState?.Guest?.Winner)) {
-      headers.push(
-        <td key={4} className="set-cell">
-          <div className="set-text">S5</div>
+        <td>
+          <div className="set-score">{gameState.Home.PointsInSet[gameState.Home.PointsInSet.length-1] || "0"}</div>
+          <div className="middle middle-text">S{gameState.Home.PointsInSet.length||"0"}</div>
+          <div className="set-score">{gameState.Guest.PointsInSet[gameState.Guest.PointsInSet.length-1] || "0"}</div>
+          
         </td>
-      );
-    }
-    return headers;
-  };
+        </>
+      ) : (
+         Array.from({ length: gameState.Set }, (_, i) => (
+          <td key={i}>
+            <div className="set-score">{gameState.Home.PointsInSet[i] || "0"}</div>
+            <div className="middle middle-text">S{i+1}</div>
+            <div className="set-score">{gameState.Guest.PointsInSet[i] || "0"}</div>
+          </td>
+        ))
+       
+      )}
+    </>
+  );
+};
+
+
 
   return (
-    <div className="scoreboard">
+
       <div className="container-tennis">
-        <div className="timer">{gameState?.Timer?.Value || "00:00"}</div>
+      
         <table className="score-tennis">
           <tbody>
             <tr>
-              {gameState?.Sport === "Tennis" &&
-                <td>
-                  <div className="set-score">{gameState?.Home?.GameInSet || "0"}</div>
-                </td>
-              }
-              <td>
-                <div className="set-score point score">{gameState?.Home?.Points || "0"}</div>
-              </td>
-              <td>
-                <div className="dot" style={{ backgroundColor: `${homeServiceDotColor}` }}></div>
-              </td>
-              <td className="player-back">
+              <td >
                 <div className={`player-name ${homeBlinkClass}`} style={{ fontSize: homeFontSize }}>
                   {gameState?.Home?.TeamName || "player1"}
                 </div>
-              </td>
-              {gameState?.Sport === "Tennis" ?
-                renderSetScores(gameState?.Home?.PointsInSet, gameState?.Home?.GameInSet)
-                :
-                renderSetScores(gameState?.Home?.PointsInSet, gameState?.Home?.Points)
-              }
-            </tr>
-            <tr className="tr-text">
-              {gameState?.Sport === "Tennis" &&
-
-                <td>
-                  <div className="set-text">S{currentSet || "1"}</div>
-                </td>
-              }
-              {gameState?.Sport === "Tennis" ?
-                <td>
-                  <div className="set-text point">PTS</div>
-                </td>
-                :
-                <td>
-                  <div className="set-text point">S{currentSet || "1"}</div>
-                </td>
-
-              }
-              <td>
-                <div className="dot"></div>
-              </td>
-              <td className="player-back logo-tennis">
-                <img src="LOGO_Stramatel.gif" />
-              </td>
-              {renderSetHeaders()}
-            </tr>
-            <tr>
-              {gameState?.Sport === "Tennis" &&
-                <td>
-                  <div className="set-score">{gameState?.Guest?.GameInSet || "0"}</div>
-                </td>
-              }
-              <td>
-                <div className="set-score point score">{gameState?.Guest?.Points || "0"}</div>
-              </td>
-              <td>
-                <div className="dot" style={{ backgroundColor: `${guestServiceDotColor}` }}></div>
-              </td>
-              <td className="player-back">
-                <div className={`player-name ${guestBlinkClass}`} style={{ fontSize: guestFontSize }}>
+                  <div className="middle"> </div>
+                  <div className={`player-name ${guestBlinkClass}`} style={{ fontSize: guestFontSize }}>
                   {gameState?.Guest?.TeamName || "player2"}
                 </div>
               </td>
-              {gameState?.Sport === "Tennis" ?
-                renderSetScores(gameState?.Guest?.PointsInSet, gameState?.Guest?.GameInSet)
-                :
-                renderSetScores(gameState?.Guest?.PointsInSet, gameState?.Guest?.Points)
-              }
-
+               <td>
+                <div className="dot" style={{ opacity: homeServiceDotColor ? "1" : "0" }}></div>
+                 <div className="middle"> </div>
+                  <div className="dot" style={{ opacity: guestServiceDotColor ? "1" : "0" }}></div>
+                  
+              </td>
+               <td>
+                <div className="point-score set-score point score">{gameState?.Home?.Points || "0"}</div>
+                <div className="middle middle-text"> POINTS </div>
+                <div className="point-score set-score point score">{gameState?.Guest?.Points || "0"}</div>
+              </td>
+               
+    {renderSetScores(gameState?.Home?.PointsInSet, gameState?.Home?.Points)}
+           
             </tr>
+           
+           
           </tbody>
         </table>
+        <div className="footer-tennis">
+          <img  className="logo-scortenn" src="LOGO_scortenn.png" />
+          <div className="timer">{gameState?.Timer?.Value || "00:00"}</div>
+        </div>
       </div>
-    </div>
+
   );
 }
 
