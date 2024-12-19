@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import Basketball from "./Sports/Basketball/Basketball"
-import Handball from "./Sports/Handball/Handball"
+
 import Tennis from "./Sports/Tennis/Tennis"
-import Volleyball from "./Sports/Volleyball/Volleyball"
 import i18next from "i18next";
 
 //TODO: DISPLAY TIMEOUT COUNTDOWN WHEN TIMEOUT IS CALLED
 
 const SPORT_COMPONENT_MAP = {
-  Basketball: Basketball,
-  Handball: Handball,
   Tennis: Tennis,
-  Volleyball: Volleyball,
-
 };
 
 
