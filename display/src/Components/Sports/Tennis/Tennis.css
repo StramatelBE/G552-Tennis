@@ -1,60 +1,54 @@
-.scoreboard {
-  width: 512px !important;
-  height: 256px !important;
-  position: absolute;
-  /* background: #005239 !important; */
-  background: #002017 !important;
-
-}
-
 .container-tennis {
+  position: absolute;
+  width: 512px !important;
+  background: linear-gradient(to left, #004890, #3e538f, #242027) !important;
+  height: 256px !important;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 5px solid #005239;
-  width: 503;
-  height: 247px;
+  justify-content: space-between;
 }
 
 .score-tennis {
   table-layout: fixed;
-  width: 100%;
+  height: 85%;
   text-align: center;
-  border-radius: 5px;
- 
+  background: #00000052;
+  margin: 10px;
+  padding: 10px;
 }
 
-
-
-
-tr {
+.footer-tennis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+td {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 
+tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.logo-scortenn {
+  width: 30%;
+}
 .set-cell {
   width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.player {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 20px;
-}
-
-.player-top {
-  top: 186px;
-}
-
-.player-bottom {
-  top: 85px;
 }
 
 .player-margin {
@@ -70,154 +64,55 @@ tr {
   align-items: center;
 }
 
-.tr-text {
-  border-radius: 5px;
-  background: #000000;
-}
-
-.player-back {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  text-align: center;
-  height: 58px;
-  width: 120px; /* S'assurer que la largeur s'ajuste automatiquement */
-  border-radius: 5px;
-  background: black;
-}
-
 .player-name {
   width: inherit;
   align-items: center;
   align-content: center;
   text-align: center;
-  color: #ecd60a;
+  color: #ffffff;
   font-weight: 700;
+  font-size: 40px;
   white-space: nowrap; /* Empêche la rupture de ligne pour le nom du joueur */
 }
-
 
 .set-score {
   display: flex;
   border-radius: 5px;
   width: 40px;
   height: 60px;
-  /* background: #242121; */
-  color: #ecd60a;
-  background: black;
+  color: #ffffff;
   text-align: center;
   justify-content: center;
   align-items: center;
-  /* color: #c96d06; */
-  font-size: 35px;
+  font-size: 52px;
   font-weight: 700;
 }
-
-
-.set-text {
-  display: flex;
-  width: 40px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  font-size: 35px;
-  font-weight: 700;
-  color: white;
+.point-score {
+    color: #e1e50e;
 }
-
-/* .score:last-child {
-  width: 100px;
-} */
 
 .dot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 10px;
-  min-height: 10px;
-  border-radius: 9999px;
-  padding: 2px;
-  margin: 2px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 15px solid #e1e50e;
+}
+.middle {
+  height: 20%;
 }
 
-.set-player-name {
-  display: flex;
-  min-width: 165px;
-  width: auto;
-  height: 20px;
-  justify-content: center;
-  align-items: center;
-  color: #005239;
-  font-weight: 700;
-}
-
-/* .player-name {
-  display: block;
-  width: auto;
-  color: #c96d06;
-  font-weight: 700;
-} */
-
-.score-background {
-  width: 50px;
-  height: 60px;
-  left: 0px;
-  top: 0px;
-  position: absolute;
-  background: #242121;
-}
-
-.sets {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
-.set,
-.points {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 41px;
-  text-align: center;
-  color: white;
-  font-size: 25px;
-  font-weight: 700;
-}
-
-
-
-.setimage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-  top: 5px;
+.middle-text {
   font-size: 20px;
   font-weight: 700;
-}
+  color: white;
+  text-align: center;
 
-.point {
-  width: 64px;
-}
-
-.score {
-  font-size: 62px;
+  align-items: center;
+  display: flex;
 }
 
 .timer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  width: auto;
-  padding: 2px;
-  /* background: #242121; */
-  background: black;
-  text-align: center;
   color: white;
   font-size: 35px;
   font-weight: 700;
