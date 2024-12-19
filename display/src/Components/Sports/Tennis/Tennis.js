@@ -2,30 +2,8 @@ import React, { useEffect } from "react";
 import "./Tennis.css";
 
 function Tennis({ gameState: incomingGameState }) {
-  const gameState = incomingGameState || {
-    "Sport": "Tennis",
-    "Timer": {
-      "Value": "00:00"
-    },
-    "Set": 4,
-    "Home": {
-      "TeamName": "Joueur 1",
-      "Points": 12,
-      "Service": 1,
-      "Winner": false,
-      "SetsWon": 2,
-      "PointsInSet": [6, 4, 7, 2],
-    },
-    "Guest": {
-      "TeamName": "Joueur 2",
-      "Points": 0,
-      "Service": 0,
-      "Winner": false,
-      "SetsWon": 1,
-      "PointsInSet": [4, 6, 6, 0],
-    }
-  };
 
+  const gameState = incomingGameState;
   const [homeFontSize, setHomeFontSize] = React.useState("40px");
   const [guestFontSize, setGuestFontSize] = React.useState("40px");
   const [currentSet, setCurrentSet] = React.useState(1);
@@ -89,32 +67,30 @@ function Tennis({ gameState: incomingGameState }) {
   const guestBlinkClass = gameState?.Guest?.Winner ? "blinking" : "";
 
 const renderSetScores = () => {
+  const setCount = gameState?.Set || 0;
   return (
     <>
-      {gameState?.Set > 3 ? (
+      {setCount > 3 ? (
         <>
-        <td>
-          <div className="set-score">{gameState.Home.SetsWon || "0"}</div>
-          <div className="middle middle-text"> SETS </div>
-          <div className="set-score">{gameState.Guest.SetsWon || "0"}</div>
-
-        </td>
-        <td>
-          <div className="set-score">{gameState.Home.PointsInSet[gameState.Home.PointsInSet.length-1] || "0"}</div>
-          <div className="middle middle-text">S{gameState.Home.PointsInSet.length||"0"}</div>
-          <div className="set-score">{gameState.Guest.PointsInSet[gameState.Guest.PointsInSet.length-1] || "0"}</div>
-          
-        </td>
+          <td>
+            <div className="set-score">{gameState.Home.SetsWon || "0"}</div>
+            <div className="middle middle-text"> SETS </div>
+            <div className="set-score">{gameState.Guest.SetsWon || "0"}</div>
+          </td>
+          <td>
+            <div className="set-score">{gameState.Home.PointsInSet[gameState.Home.PointsInSet.length-1] || "0"}</div>
+            <div className="middle middle-text">S{gameState.Home.PointsInSet.length || "0"}</div>
+            <div className="set-score">{gameState.Guest.PointsInSet[gameState.Guest.PointsInSet.length-1] || "0"}</div>
+          </td>
         </>
       ) : (
-         Array.from({ length: gameState.Set }, (_, i) => (
+        Array.from({ length: setCount }, (_, i) => (
           <td key={i}>
             <div className="set-score">{gameState.Home.PointsInSet[i] || "0"}</div>
             <div className="middle middle-text">S{i+1}</div>
             <div className="set-score">{gameState.Guest.PointsInSet[i] || "0"}</div>
           </td>
         ))
-       
       )}
     </>
   );

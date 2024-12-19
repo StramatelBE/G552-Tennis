@@ -10,7 +10,7 @@ import TestPage from "./Components/TestPage.js";
 import i18n from "./config/i18n/i18n.js";
 import "./main.css";
 import Tennis from "./Components/Sports/Tennis/Tennis.js";
-/* const { ipcRenderer } = window.require("electron"); */
+const { ipcRenderer } = window.require("electron");
 
 const root = document.getElementById("root");
 const appRoot = ReactDOM.createRoot(root);
@@ -23,7 +23,7 @@ const App = () => {
   const [lastMediaMode, setLastMediaMode] = useState(null); // Track last media mode
 
 
-/*   useEffect(() => {
+  useEffect(() => {
     const removeListeners = () => {
       ipcRenderer.removeAllListeners("server-data");
     };
@@ -67,21 +67,21 @@ const App = () => {
     });
 
     return removeListeners;
-  }, [lastMediaMode]); */ // Include lastMediaMode in the dependencies array
+  }, [lastMediaMode]); // Include lastMediaMode in the dependencies array
 
 
   return (
     <>
       <I18nextProvider i18n={i18n}>
-  {/*       {mode === "scoring" && <ScoringMode gameState={gameState} />}
+        {mode === "scoring" && <ScoringMode gameState={gameState} />}
         {mode === "media" && <MediaMode key={mediaKey} mediaState={mediaState} mediaMode={mediaMode} />}
         {mode === "prematch" && <PrematchMode mediaState={mediaState} mediaMode={mediaMode} gameState={gameState} />}
         {mode === "logo" && <LogoMode />}
         {mode === "test" && <TestPage />}
         {mode === "qr" && <QRMode />}
         {mode === "sleep" && <></>}
-        {mode === "" && <div>Waiting for data...</div>} */}
-        <Tennis />
+        {mode === "" && <div>Waiting for data...</div>}
+
       </I18nextProvider>
     </>
   );
