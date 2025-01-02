@@ -24,6 +24,7 @@
     "info": "Informatie",
     "account": "Account",
     "automaticStandby": "Automatische stand-by",
+    "brightness": "Helderheid",
     "Dialog": {
       "chooseTime": "Kies de tijd",
       "pleaseSelectMinutesAndSeconds": "Selecteer a.u.b. minuten en seconden"

@@ -6,15 +6,19 @@ import {
   Grid,
   IconButton,
   Paper,
+  Slider,
+  Stack,
   TextField,
   Typography
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ActiveSessionsService from "../../services/activeSessionsService";
 import authService from "../../services/authService";
 import LostPasswordDialog from "../dialogs/LostPasswordDialog";
 import UserConnectedDialog from "../dialogs/UserConnectedDialog";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import veilleService from "../../services/veilleService";
 
 function Login() {
   const [password, setPassword] = useState("");
@@ -22,17 +26,27 @@ function Login() {
   const [openUserConnectedDialog, setOpenUserConnectedDialog] = useState(false);
   const { t } = useTranslation();
   const [openChangePassword, setOpenChangePassword] = useState(false);
+  const [brightness, setBrightness] = useState(0);
+  const [veille, setVeille] = useState({});
 
+  useEffect(() => {
+   veilleService
+          .get()
+          .then((data) => {
+            console.log(data);
+            setVeille(data);
+            setBrightness(data.brightness);
+          });
+  }, []);
 
-
-  /*   async function getUsers() {
-      const result = await userService.getAll();
-      if (result) {
-        // Sort users in alphabetical order by their name
-        const sortedUsers = result.sort((a, b) => a.username.localeCompare(b.username));
-        setUsers(sortedUsers);
-      }
-    } */
+  const handleBrightnessChange = (event, newValue) => {
+    const updatedVeille = {
+      ...veille,
+      brightness: newValue,
+    };
+    setBrightness(newValue);
+    veilleService.update(updatedVeille).then((response) => { });
+  };
 
   function deleteUserConected() {
     ActiveSessionsService.deleteCurrentUser();
@@ -145,7 +159,34 @@ function Login() {
             </FormControl>
           </form>
         </Box>
+         
       </Paper>
+      <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={3}
+                  >
+                    <Stack spacing={3} direction="row" alignItems="center">
+                      <IconButton disabled>
+                        <Brightness4Icon sx={{ color: "text.secondary" }} />
+                      </IconButton>
+                      <Typography variant="h8" sx={{ color: "text.primary" }}>
+                        {t("Profile.brightness")}
+                      </Typography>
+                    </Stack>
+                    <Slider
+                      color="secondary"
+                      value={brightness}
+                      onChange={handleBrightnessChange}
+                      aria-labelledby="brightness-slider"
+                      min={0}
+                      max={10}
+                      step={1}
+                      valueLabelDisplay="auto"
+                      sx={{ width: 150 }}
+                    />
+                  </Stack>
       <LostPasswordDialog
         open={openChangePassword}
         onClose={() => setOpenChangePassword(false)}

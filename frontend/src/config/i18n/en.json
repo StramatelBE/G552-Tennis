@@ -24,6 +24,7 @@
     "info": "Information",
     "account": "Account",
     "automaticStandby": "Automatic standby",
+    "brightness": "Brightness",
     "Dialog": {
       "chooseTime": "Choose time",
       "pleaseSelectMinutesAndSeconds": "Please select minutes and seconds"

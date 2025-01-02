@@ -27,9 +27,11 @@ class VeilleController {
   }
 
   getById = (req, res) => {
+    console.log("getById", req.params.id);
     this.veille.getById(req.params.id)
       .then((veille) => {
         if (veille) {
+          console.log("veille", veille);
           res.status(200).json(veille);
         } else {
             res.status(404).json({ message: 'Veille not found' });
@@ -41,6 +43,7 @@ class VeilleController {
     }
   
     update = (req, res) => {
+      console.log("update", req.body);
       this.veille.update(req.body)
         .then(() => {
           res.status(200).json({ message: 'Veille updated successfully' });

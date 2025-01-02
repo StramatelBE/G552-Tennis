@@ -24,6 +24,7 @@
     "info": "Informacje",
     "account": "Konto",
     "automaticStandby": "Automatyczny tryb czuwania",
+    "brightness": "Jasność",
     "Dialog": {
       "chooseTime": "Wybierz czas",
       "pleaseSelectMinutesAndSeconds": "Wybierz minuty i sekundy"

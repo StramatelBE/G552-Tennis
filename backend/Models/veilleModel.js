@@ -1,5 +1,6 @@
 // Models/veilleModel.js
 const db = require("../Database/db");
+const sharedEmitter = require("../Utils/SharedEmitter");
 
 class Veille {
   constructor() {
@@ -14,7 +15,8 @@ class Veille {
                 enable BOOLEAN NOT NULL DEFAULT 1,
                 start_time INTEGER,
                 end_time INTEGER,
-                restart_at STRING
+                restart_at STRING,
+                brightness INTEGER DEFAULT 10
             )
         `;
     db.run(createTable, (err) => {
@@ -28,9 +30,7 @@ class Veille {
 
   initialize() {
     const checkTableEmpty = `SELECT COUNT(id) AS count FROM veille`;
-    console.log("initializeTableIfEmpty", checkTableEmpty);
     db.get(checkTableEmpty, (err, row) => {
-      console.log("row1", row);
       if (err) {
         console.error(err.message);
         return;
@@ -42,6 +42,7 @@ class Veille {
           startTime: 7,
           endTime: 23,
           restartAt: "04:00",
+          brightness: 10
         };
         this.create(veille);
       }
@@ -51,9 +52,9 @@ class Veille {
   create(veille) {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO veille (enable, start_time, end_time, restart_at)
-                 VALUES (?, ?, ?, ?)`,
-        [veille.enable, veille.startTime, veille.endTime, veille.restartAt],
+        `INSERT INTO veille (enable, start_time, end_time, restart_at, brightness)
+                 VALUES (?, ?, ?, ?, ?)`,
+        [veille.enable, veille.startTime, veille.endTime, veille.restartAt, veille.brightness],
         function (err) {
           if (err) {
             reject(err);
@@ -90,29 +91,36 @@ class Veille {
   }
 
   update(veille) {
-    console.log("veille", veille);
     return new Promise((resolve, reject) => {
-      db.run(
-        `UPDATE veille
-         SET enable = ?, start_time = ?, end_time = ?, restart_at = ?
-         WHERE id = ?`,
-        [
-          veille.enable,
-          veille.start_time,
-          veille.end_time,
-          veille.restart_at,
-          1,
-        ],
-        (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        }
-      );
+      console.log("before emit.")
+
+        sharedEmitter.emit('updateSchedule', veille.restart_at);  // Ensure you pass the necessary data for listeners
+        console.log("has sended.")
+        db.run(
+            `UPDATE veille
+             SET enable = ?, start_time = ?, end_time = ?, restart_at = ?, brightness = ?
+             WHERE id = ?`,
+            [
+                veille.enable,
+                veille.start_time,
+                veille.end_time,
+                veille.restart_at,
+                veille.brightness,
+                veille.id,  // Assuming 'veille' object has 'id'
+            ],
+            (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            }
+        );
     });
-  }
+}
+
+
+
 
   delete(id) {
     return new Promise((resolve, reject) => {

@@ -5,8 +5,8 @@ import {
   CircularProgress,
   Grid,
   IconButton,
-  LinearProgress,
   Paper,
+  Slider,
   Stack,
   Switch,
   TextField,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+import Brightness4Icon from "@mui/icons-material/Brightness4";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -38,18 +39,15 @@ import spaceService from "../../services/spaceService";
 function Profile() {
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
-  const [param, setParam] = useState({});
+
   const [veille, setVeille] = useState({});
-  const totalSize = 100; // Taille totale en Go
-  const usedSize = 90; // Taille utilisée en Go
+
   const [user, setUser] = useState(null);
   const { darkMode, setDarkMode } = useDarkMode();
   const [mode, setMode] = useState({});
-  const [Widths, setWidths] = useState([]);
   const [sportsData, setSportsData] = useState([]);
+  const [brightness, setBrightness] = useState(0);
 
-
-  let currentWidth = 0;
 
   useEffect(() => {
     modeServiceInstance.getMode().then((data) => {
@@ -67,12 +65,11 @@ function Profile() {
     spaceService.getSpace().then((data) => {
       const widths = [];
       const sportsData = [];
-      let currentWidth = 0;
       Object.entries(data).forEach(([sport, size]) => {
         if (sport !== 'Total') {
           const width = (size / data.Total) * 100;
           widths.push(width);
-          currentWidth += width;
+         
           sportsData.push({
             name: sport,
             color: getRandomColor(),
@@ -80,9 +77,7 @@ function Profile() {
           });
         }
       });
-      console.log("sportsData", sportsData);
-      setWidths(widths);
-      console.log("widths", widths);
+
       setSportsData(sportsData);
     });
     const currentUser = authService.getCurrentUser();
@@ -104,17 +99,15 @@ function Profile() {
     if (user) {
 
       paramService.getByUserId(user.user.id).then((paramData) => {
-        const paramDataItem = paramData?.[0] || {};
-        setParam(paramDataItem);
-
-        // Mettre à jour l'état avec les données de param
+    
+   
+      
         veilleService
-          .getByUserId(paramDataItem.veille_id)
+          .get()
           .then((veilleData) => {
-            console.log("veilleData", veilleData);
             setVeille(veilleData || {});
-
-            // Mettre à jour l'état avec les données de veille
+            setBrightness(veilleData.brightness);
+           
           });
       });
     }
@@ -131,16 +124,13 @@ function Profile() {
     });
   };
 
-  const handleEventAutoChange = (event) => {
-    const updatedParam = { ...param, event_auto: event.target.checked ? 1 : 0 };
-    setParam(updatedParam);
-    paramService.update(updatedParam).then((response) => { });
-  };
 
   const handleVeilleChange = (event) => {
     const updatedVeille = { ...veille, enable: event.target.checked ? 1 : 0 };
     setVeille(updatedVeille);
-    veilleService.update(updatedVeille).then((response) => { });
+    veilleService.update(updatedVeille).then((response) => {
+      console.log(response);
+    });
   };
 
   function updatedVeille01(veille) {
@@ -151,20 +141,16 @@ function Profile() {
     });
   }
 
-  const handleSliderChange = (event, newValue) => {
+  const handleBrightnessChange = (event, newValue) => {
     const updatedVeille = {
       ...veille,
-      start_time: newValue[0],
-      end_time: newValue[1],
+      brightness: newValue,
     };
-    setVeille(updatedVeille);
+    setBrightness(newValue);
     veilleService.update(updatedVeille).then((response) => { });
   };
 
-  const calculateProgressValue = (usedSize, totalSize) => {
-    const percentage = (usedSize / totalSize) * 100;
-    return isNaN(percentage) ? 0 : percentage;
-  };
+  
 
 
 
@@ -304,6 +290,32 @@ function Profile() {
                     <LanguageSelector />
                   </Stack>
                 </Stack>
+                 <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={3}
+                  >
+                    <Stack spacing={3} direction="row" alignItems="center">
+                      <IconButton disabled>
+                        <Brightness4Icon sx={{ color: "text.secondary" }} />
+                      </IconButton>
+                      <Typography variant="h8" sx={{ color: "text.primary" }}>
+                        {t("Profile.brightness")}
+                      </Typography>
+                    </Stack>
+                    <Slider
+                      color="secondary"
+                      value={brightness}
+                      onChange={handleBrightnessChange}
+                      aria-labelledby="brightness-slider"
+                      min={0}
+                      max={10}
+                      step={1}
+                      valueLabelDisplay="auto"
+                      sx={{ width: 150 }}
+                    />
+                  </Stack>
                 <Stack spacing={2}>
                   <Typography
                     variant="h6"
@@ -333,43 +345,7 @@ function Profile() {
                   <Typography variant="h6" sx={{ color: "text.secondary" }}>
                     {t("Profile.account")}
                   </Typography>
-                  {/* <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    spacing={3}
-                    onClick={handleEventAutoChange}
-                  >
-                    <Stack spacing={3} direction="row" alignItems="center">
-                      <IconButton disabled>
-                        <PermMediaIcon sx={{ color: "text.secondary" }} />
-                      </IconButton>
-                      <Typography> {t("autoEvent")}</Typography>
-                    </Stack>
-                    <Switch
-                      color="secondary"
-                      checked={param.event_auto === 1}
-                    />
-                  </Stack> */}
-                  {/* <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    spacing={3}
-                    onClick={handleVeilleChange}
-                  >
-                    <Stack spacing={3} direction="row" alignItems="center">
-                      <IconButton disabled>
-                        <ModeNightIcon sx={{ color: "text.secondary" }} />
-                      </IconButton>
-                      <Typography> {t("Profile.automaticStandby")}</Typography>
-                    </Stack>
-                    <Switch
-                      color="secondary"
-                      checked={veille.enable === 1}
-                      onChange={handleVeilleChange}
-                    />
-                  </Stack> */}
+                
                   <Stack
                     direction="row"
                     justifyContent="space-between"
@@ -402,26 +378,7 @@ function Profile() {
                       }}
                     />
                   </Stack>
-                  {/*  <Stack>
-                    <Slider
-                      m={5}
-                      color="secondary"
-                      value={[veille.start_time, veille.end_time]}
-                      min={0}
-                      max={24}
-                      step={1}
-                      marks={[
-                        { value: 0, label: "0h" },
-                        { value: 6, label: "6h" },
-                        { value: 12, label: "12h" },
-                        { value: 18, label: "18h" },
-                        { value: 24, label: "24h" },
-                      ]}
-                      valueLabelDisplay="auto"
-                      onChange={handleSliderChange}
-                      disabled={veille.enable === 0}
-                    />
-                  </Stack> */}
+                 
                 </Stack>
               </Grid>
             </Grid>

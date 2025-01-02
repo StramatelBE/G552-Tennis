@@ -3,12 +3,17 @@ import fetchWithAuth from '../utils/fetchWithAuth';
 const URL_API = process.env.REACT_APP_API_URL; // Make sure you have REACT_APP_API_URL in your .env file
 
 class VeilleService {
-  async getByUserId(id) {
-    console.log("getByUserId", id);
+  async get() {
     try {
-      const response = await fetchWithAuth(`${URL_API}/veilles/1`);
+      const response = await fetch(`${URL_API}/veilles/1`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       return await response.json(); // Assuming fetchWithAuth returns a fetch-like Response object.
     } catch (error) {
+      console.log(error);
       console.error(error);
       throw error;
     }
@@ -32,7 +37,7 @@ class VeilleService {
 
   async update(updates) {
     try {
-      const response = await fetchWithAuth(`${URL_API}/veilles`, {
+      const response = await fetch(`${URL_API}/veilles`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

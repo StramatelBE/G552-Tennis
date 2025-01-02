@@ -108,6 +108,7 @@ const authRoutes = require("./Routes/authRoutes");
 const activeSessionsRoutes = require("./Routes/activeSessionsRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const spaceRoutes = require("./Routes/spaceRoutes");
+const veilleRoutes = require("./Routes/veilleRoutes");
 const modeRoutes = require("./Routes/modeRoutes");
 app.get("/qrcode", async (req, res) => {
     try {
@@ -134,6 +135,8 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/mode", modeRoutes);
 app.use("/space", spaceRoutes);
+app.use("/veilles", veilleRoutes);
+
 
 app.use(checkToken);
 
@@ -145,7 +148,7 @@ const eventRoutes = require("./Routes/eventRoutes");
 const macroRoutes = require("./Routes/macroRoutes");
 const buttonRoutes = require("./Routes/buttonRoutes");
 const paramRoutes = require("./Routes/paramRoutes");
-const veilleRoutes = require("./Routes/veilleRoutes");
+
 
 const adminRoutes = require("./Routes/adminRoutes");
 
@@ -157,7 +160,6 @@ app.use("/eventmedias", eventmediaRoutes);
 app.use("/macros", macroRoutes);
 app.use("/buttons", buttonRoutes);
 app.use("/params", paramRoutes);
-app.use("/veilles", veilleRoutes);
 
 app.use("/admin", adminRoutes);
 
