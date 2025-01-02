@@ -29,6 +29,13 @@ const handleScoring = async (scoring) => {
         const macroModes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         const prematchMode = [21];
         const stopModes = [22, 23, 24, 25, 99];
+          const veille = await veilleModel.getById(1);
+        const brightness = veille.brightness;
+
+        if (brightness != 0)
+            scoring.Brightness = brightness / 10
+        else
+            scoring.Brightness = 0.00001
 
         const getLanguage = await user.getLanguage(scoring.Sport);
 
@@ -47,8 +54,12 @@ const handleScoring = async (scoring) => {
             console.log("Sport", gameState.Sport);
             let macrosData = await macro.getMacrosByButton(mode, gameState.Sport);
             console.log("MacrosData", macrosData);
-
-            //console.log("macrosData", macrosData)
+ if (macrosData && macrosData[0]) {
+                if (brightness != 0)
+                    macrosData[0].Brightness = brightness / 10
+                else
+                    macrosData[0].Brightness = 0.00001
+            }
             if (scoreMode.includes(macrosData)) {
                 console.log("No event for this macro, sending Mode", scoring.Mode);
                 scoring.Mode = scoreMode[0];

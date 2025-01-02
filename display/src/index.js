@@ -21,7 +21,7 @@ const App = () => {
   const [mediaMode, setMediaMode] = useState(false);
   const [mediaKey, setMediaKey] = useState(0); // Key to force re-render of MediaMode
   const [lastMediaMode, setLastMediaMode] = useState(null); // Track last media mode
-
+  const [brightness, setBrightness] = useState(1);
 
   useEffect(() => {
     const removeListeners = () => {
@@ -29,7 +29,7 @@ const App = () => {
     };
 
     ipcRenderer.on("server-data", (event, data) => {
-      console.log(data.Mode);
+         setBrightness(data.Brightness);
       switch (data.Mode) {
         case 0:
           setMode("scoring");
@@ -71,10 +71,10 @@ const App = () => {
 
 
   return (
-    <>
+    <div style={{ opacity: brightness ? brightness : 1 }}>
       <I18nextProvider i18n={i18n}>
         {mode === "scoring" && <ScoringMode gameState={gameState} />}
-        {mode === "media" && <MediaMode key={mediaKey} mediaState={mediaState} mediaMode={mediaMode} />}
+        {mode === "media" && <MediaMode key={mediaKey} mediaState={mediaState} mediaMode={mediaMode} brightness={brightness} />}
         {mode === "prematch" && <PrematchMode mediaState={mediaState} mediaMode={mediaMode} gameState={gameState} />}
         {mode === "logo" && <LogoMode />}
         {mode === "test" && <TestPage />}
@@ -83,7 +83,7 @@ const App = () => {
         {mode === "" && <div>Waiting for data...</div>}
 
       </I18nextProvider>
-    </>
+    </div>
   );
 };
 

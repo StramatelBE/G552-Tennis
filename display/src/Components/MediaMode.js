@@ -3,7 +3,7 @@ import './Mode.css';
 import ScoringMode from './ScoringMode';
 
 
-const MediaMode = ({mediaState, mediaMode}) => {
+const MediaMode = ({mediaState, mediaMode, brightness}) => {
     const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
 
@@ -46,7 +46,7 @@ const MediaMode = ({mediaState, mediaMode}) => {
          
                     <video
                         src={"http://localhost:3000" + mediaPath}
-                        style={{width: "512px", height: "256px"}}
+                        style={{width: "512px", height: "256px", opacity: brightness ? brightness : 1}}
                         autoPlay
                         preload={"auto"}
                         onEnded={() => setCurrentMediaIndex((currentMediaIndex + 1) % mediaState.length)}
@@ -56,7 +56,7 @@ const MediaMode = ({mediaState, mediaMode}) => {
                 <>
                     {
                         <img src={"http://localhost:3000" + mediaPath}
-                             style={{width: "512px", height: "256px"}}
+                             style={{width: "512px", height: "256px", opacity: brightness ? brightness : 1}}
                              alt="Media content"/>
                        
                     }
